@@ -7,9 +7,7 @@
  *  @author              Rodwyn Moreno
  *  @modificado          23-04-2012
 **/
- 
 	$db = new sql($config_bd['host'],$config_bd['port'],$config_bd['bname'],$config_bd['user'],$config_bd['pass']);
-	
 	if(!$userAdmin->u_logged())
 		echo '<script>window.location="index.php?m=login"</script>';
 	
@@ -26,6 +24,5 @@
 		'IDCLIENTE'		=> $idCliente,
 		'IDUSUARIO'	=> $idUsuario
 	));
-
 	$tpl->pparse('default');
 ?>
