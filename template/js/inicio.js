@@ -1,6 +1,6 @@
 //declaraciones iniciales
 $(document).ready(function(){
-   	
+   	redimensionarCatalogos();
 });
 /*
 *Funcion que controla las peticiones ajax
@@ -29,4 +29,10 @@ function controladorAcciones(accion,data,divResultado){
 			$("#"+divResultado).show().html(data);
 		break;
 	}
+}
+
+function redimensionarCatalogos(){
+	altoDiv=$("#adm_content").height();
+	console.log(altoDiv);
+	$("#divContenedorCatalogo").css("height",(altoDiv-5)+"px");
 }

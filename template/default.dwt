@@ -1,3 +1,7 @@
 <link rel="stylesheet" type="text/css" href="{PATH}/css/estilosTareas.css">
 <script src="{PATH}/js/inicio.js"></script>
 <script src="{PATH}/js/scripts.js"></script>
+<div id="divContenedorCatalogo" style="border:1px solid #FF0000;">
+    <div style="border:1px solid blue;width:250px;height:99.7%;float:left;"></div>
+    <div style="border:1px solid green;width:75.2%;height:99.7%;float:left;margin-left:5px;"></div>
+</div>
