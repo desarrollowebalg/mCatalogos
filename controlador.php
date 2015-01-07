@@ -9,11 +9,13 @@ if($_SERVER["HTTP_REFERER"]==""){
 	echo "0";
 }else{
 	include "claseCatalogos.php";
-	//se instancia la clase que contiene las funciones de los cuestionarios
+	//se instancia la clase que contiene las funciones de los catalogos
 	$objT=new catalogos();
 	
 	switch($_GET["action"]){
-		
+		case "avisoCatalogosExistentes":
+		echo "avisoCatalogosExistentes jajaja".$objT->avisoCatalogosExistentes(1);
+		break;
 	}
 	
 	switch($_POST["action"]){

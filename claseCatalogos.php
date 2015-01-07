@@ -32,6 +32,26 @@ class catalogos{
    		return $objBd;
    	}
 
+/**
+	*@method 		avisoCatalogosExistentes
+	*@description 	Funcion para pintar aviso si no hay catalogos para el cliente
+	*@paramas 				
+	*
+	*/
+	public function avisoCatalogosExistentes($idCliente){
+		$valor=0;
+		$objDb=$this->iniciarConexionDb();
+		$sqlE="SELECT * FROM CAT2_CATALOGO WHERE ID_CLIENTE = ".$idCliente;
+		$resE=$objDb->sqlQuery($sqlE);
+		
+		if($objDb->sqlEnumRows($resE)>0){
+			$valor=$objDb->sqlEnumRows($resE);
+		}
+		return $valor;
+	}
+
+
+
 }//fin de la clase Cuestionarios
 
 ?>
