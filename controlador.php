@@ -13,9 +13,29 @@ if($_SERVER["HTTP_REFERER"]==""){
 	$objT=new catalogos();
 	
 	switch($_GET["action"]){
+		
 		case "avisoCatalogosExistentes":
-		echo "avisoCatalogosExistentes jajaja".$objT->avisoCatalogosExistentes(1);
+		 if($objT->avisoCatalogosExistentes((int)$_GET["idCliente"])===0){
+			echo  0;
+		 }else{
+			 echo 1;
+		 }
 		break;
+
+		case "creaNuevoCatalogo":
+		 $objT->creaNuevoCatalogo($_GET["idCliente"],$_GET["nombre"]);
+		break;
+
+		case "dibujArbol":
+		$tpl->set_filenames(array('controlador' => 'tCrearArbol'));
+		
+		    $tpl->assign_vars(array(
+				'ARBOL'          	=> $objT->dibujArbol($_GET["idCliente"])
+				
+			));
+			$tpl->pparse('controlador');
+		break;
+
 	}
 	
 	switch($_POST["action"]){
