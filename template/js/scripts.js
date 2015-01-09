@@ -34,3 +34,24 @@ function enviarNotificacion(accion){
 	//se vacia el array generado
 	usuariosTareasNotificaciones.length=0;
 }
+function formularioCatNuevo(){
+  $("#dialogoCrearCatalogo").dialog( "open" );	
+}
+
+function pintaContenido(cliente,catalogo,tipo){
+	
+	 $("#divCatalogo").html(cliente+' '+catalogo+' '+tipo);
+	/* $('#respuestas_importador_cuerpo').html('Extrayendo datos espere...');
+	  $.ajax({
+          url: "public/libs/PHPExcleReader/ProcesoLeerXlsx.php",
+		  data : {
+            nombre_archivo:archivo
+		   },
+		   type: "POST",
+            success: function(data) {
+           $('#respuestas_importador_cuerpo').html(data);
+		   $( "#boton_aceptar_importar" ).prop( "disabled", false );
+          }
+      });*/
+  	
+}

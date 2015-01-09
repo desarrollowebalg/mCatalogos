@@ -1,16 +1,13 @@
-<link rel="stylesheet" type="text/css" href="{PATH}/css/estilosTareas.css">
-
+<link rel="stylesheet" type="text/css" href="{PATH}/css/estilosCatalogos.css">
 <script src="{PATH}/js/inicio.js"></script>
 <script src="{PATH}/js/scripts.js"></script>
 <script src="{PATH}/js/jquery.treeview.js" type="text/javascript"></script>
 <script type="text/javascript" src="{PATH}/js/demo.js"></script>
-<style type="text/css">
-#divContenedorCatalogo{position: absolute;width: 95%;}
-</style>
 
-<div id="divContenedorCatalogo" style="border:1px solid #FF0000;">
-    <div style="border:1px solid blue;width:250px;height:99.7%;float:left;" id="divArbol"></div>
-    <div style="border:1px solid green;width:75.2%;height:99.7%;float:left;margin-left:5px;" id="divCatalogo"></div>
+<div id="divContenedorCatalogo">
+    <div id="divArbol"></div>
+    <div id="divCatalogo"></div>
+    <div id="divCatalogoDetalle"></div>
 </div>
 
 <input type="text" value="{IDCLIENTE}" id="idClienteCatalogo" />
