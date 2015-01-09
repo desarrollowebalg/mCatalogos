@@ -1,0 +1,5 @@
+<link rel="stylesheet" href="modules/mCatalogos/template/css/jquery.treeview.css" />
+<link rel="stylesheet" href="modules/mCatalogos/template/css/screen.css" />
+<script src="modules/mCatalogos/template/js/jquery.treeview.js" ></script>
+<script src="modules/mCatalogos/template/js/demo.js"></script>
+{ARBOL}

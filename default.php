@@ -19,7 +19,7 @@
 	/*echo "<pre>";
 	print_r($userAdmin);
 	echo "</pre>";*/
-	
+	/*
 	$arbol = '<ul id="browser" class="filetree">
 		<li><span class="folder">Blancos</span>
 			<ul>
@@ -41,15 +41,15 @@
 				</li>
 			</ul>
          </li>
-	</ul>';
+	</ul>';*/
 	
 	
 	$tpl->assign_vars(array(
 		'PAGE_TITLE'	=> "Administraci&oacute;n de Catalogos",	
 		'PATH'			=> $dir_mod,
 		'IDCLIENTE'		=> $idCliente,
-		'IDUSUARIO'	    => $idUsuario,
-		'ARBOL'			=> $arbol
+		'IDUSUARIO'	    => $idUsuario
+		
 	));
 	$tpl->pparse('default');
 ?>

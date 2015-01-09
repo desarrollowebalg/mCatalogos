@@ -34,5 +34,3 @@ function enviarNotificacion(accion){
 	//se vacia el array generado
 	usuariosTareasNotificaciones.length=0;
 }
-
-	
