@@ -12,6 +12,7 @@
 	$sql = 'SELECT a.ID_CLIENTE,
 				   a.NOMBRE,
 				   b.ID_TIPO,
+				   b.ID_ARCHIVO,
 				   b.ORDEN,
 				   b.TITULO,
 				   b.RESUMEN,
@@ -29,12 +30,18 @@
 	$qry = $db->sqlQuery($sql);
 	$cnt = $db->sqlEnumRows($qry);
 	if($cnt>0){ 
-	 	$tabla = '<table border="1" width="50%">';
+	 	$tabla = '<table border="1" width="100%" style="border-collapse:collapse;" bordercolor="#EAEAEA">';
 	 	$tabla .= '<tr><td colspan="3" align="center" style=" background-color:#0072A8;color:#FFF;">Archivos</td></tr>';
 			while($row = $db->sqlFetchArray($qry)){	
-		 	      $tabla .= '<tr><td>'.$row['FORMATO'].'</td><td>'.$row['TITULO'].'</td><td>Ver...</td></tr>';			
+		 	      $tabla .= '<tr align="center"><td width="50" ><img src="'.$row['FORMATO'].'" width="50" height="50" /></td><td>'.$row['TITULO'].'</td><td width="80" onclick="verDetalles(\''.
+				  $row['TITULO'].'\',\''.$row['RESUMEN'].'\',\''.$row['PATH'].'\',\''.$row['FORMATO'].'\',\''.$row['ID_TIPO'].'\',\''.$row['ID_ARCHIVO'].'\');" style="cursor:pointer;">Ver detalles</td></tr>';			
 			}
 	 	$tabla .= '</table>';
+	}else{
+			$tabla = '<table border="1" width="100%" style="border-collapse:collapse;" bordercolor="#EAEAEA">';
+			$tabla .= '<tr align="center"> <td colspan="3"  style=" background-color:#0072A8;color:#FFF;">Archivos</td></tr>';
+			$tabla .= '<tr align="center"><td width="50" >Sin Imagen</td><td> Sin Archivo</td><td width="80">Sin detalles</td></tr>';	
+			$tabla .= '</table>';
 	}
 	
 	echo $tabla;

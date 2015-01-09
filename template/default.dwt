@@ -10,8 +10,8 @@
     <div id="divCatalogoDetalle"></div>
 </div>
 
-<input type="text" value="{IDCLIENTE}" id="idClienteCatalogo" />
-<input type="text" value="{IDUSUARIO}" id="idUsuarioCatalogo" />
+<input type="hidden" value="{IDCLIENTE}" id="idClienteCatalogo" />
+<input type="hidden" value="{IDUSUARIO}" id="idUsuarioCatalogo" />
 
 <!--div dialog crar catalogoo-->
  <div id="dialogoCrearCatalogo" title="Nuevo Cat&aacute;logo">
@@ -20,4 +20,4 @@
     <tr> <td width="15%">Nombre </td> <td><input type="text" style="width:100%;" id="nombreCatalogo"/></td></tr>
   </table>
  </div>
- 
+  <div id="dialogoUsuariosAsignados" title="Usuarios">

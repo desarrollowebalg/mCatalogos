@@ -107,7 +107,7 @@ class catalogos{
 			}
 			$cadenArbol .= '</ul>';
 	   }
-	  echo 	 $cadenArbol;
+	  echo 	 '<table border="0" width="100%"><tr><td align="center" style=" background-color:#0072A8;color:#FFF;">Cat&aacute;logos</td></tr> </table>'.$cadenArbol;
      }
 	 
 	   /**

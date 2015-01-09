@@ -1,0 +1,13 @@
+<table border="1" width="100%" height="100%" style="border-collapse:collapse;" bordercolor="#EAEAEA">
+ <tr align="center" style=" background-color:#0072A8;color:#FFF;"> <td height="20"> Usuarios Existentes</td><td></td> <td> Usuarios Asignados </td></tr>
+ <tr> <td> </td>
+      <td width="10"> 
+      		<input type="button" value=">>"/><br>
+            <input type="button" value=">  "/><br>
+            <input type="button" value="<  "/><br>
+            <input type="button" value="<<"/>
+      </td> 
+ 	  <td> </td>
+ </tr>
+ <tr> <td colspan="3" height="20"> </td></tr>
+</table>

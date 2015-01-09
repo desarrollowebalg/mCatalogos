@@ -56,3 +56,40 @@ function pintaContenido(cliente,catalogo,tipo){
       });
   	
 }
+
+function verDetalles(titulo,resumen,ruta,imagen,tipo,idArchivo){
+	
+	// $("#divCatalogo").html(cliente+' '+catalogo+' '+tipo);
+	 $('#divCatalogoDetalle').html('Extrayendo datos espere...');
+     var origen = imagen;
+	 
+	 if(tipo == '2'){
+		origen = ruta;
+	 }
+	 
+	 var tabla = '<table border="1" width="100%" style="border-collapse:collapse;" bordercolor="#EAEAEA">'+
+					 '<tr> <td colspan="2" align="center" style=" background-color:#0072A8;color:#FFF;"> Detalles</td></tr>'+
+					 '<tr> <td colspan="2" align="center"><img src="'+origen+'" width="200 height="200" /></td></tr>'+
+					 '<tr> <td colspan="2" align="center">&nbsp;</td></tr>'+
+					 '<tr> <td style=" background-color:#0072A8;color:#FFF;"  width="80"> Nombre</td><td>'+titulo+'</td></tr>'+
+					 '<tr> <td style=" background-color:#0072A8;color:#FFF;"  width="80"> Resumen</td><td>'+resumen+'</td></tr>'+
+					 '<tr> <td colspan="2" align="center">&nbsp;</td></tr>'+
+					 '<tr> <td colspan="2" align="center"> <input type="button" value="Usuarios Asignados" onclick="usuariosAsignados('+idArchivo+');" /></td></tr>'+
+				 '</table>';
+	  $('#divCatalogoDetalle').html(tabla);
+	  	
+}
+
+function usuariosAsignados(idArchivo){
+  $.ajax({
+            url: "index.php?m=mCatalogos&c=mUsuariosAsignados",
+		    data : {
+            idArchivo:idArchivo
+		   	},
+		    type: "POST",
+            success: function(data) {
+            $('#dialogoUsuariosAsignados').html(data);
+		  }
+      });	
+  $("#dialogoUsuariosAsignados").dialog( "open" );	
+}

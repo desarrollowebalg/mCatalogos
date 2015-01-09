@@ -19,6 +19,21 @@ $(document).ready(function(){
 		}
    	});
 	
+	$("#dialogoUsuariosAsignados").dialog({
+		autoOpen: false,
+		height: 500,
+		width: 400,
+		modal: true,
+		buttons: {
+			Cancelar: function() {
+				$("#dialogoUsuariosAsignados").dialog( "close" );
+			},
+			Aceptar:function(){
+				//crearNuevoCatalogo();
+			}
+		}
+   	});
+	
 	
 });
 /*
