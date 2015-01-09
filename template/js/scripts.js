@@ -717,19 +717,20 @@ function formularioCatNuevo(){
 
 function pintaContenido(cliente,catalogo,tipo){
 	
-	 $("#divCatalogo").html(cliente+' '+catalogo+' '+tipo);
-	/* $('#respuestas_importador_cuerpo').html('Extrayendo datos espere...');
+	// $("#divCatalogo").html(cliente+' '+catalogo+' '+tipo);
+	 $('#divCatalogo').html('Extrayendo datos espere...');
 	  $.ajax({
-          url: "public/libs/PHPExcleReader/ProcesoLeerXlsx.php",
+            url: "index.php?m=mCatalogos&c=mBuscarArchivos",
 		  data : {
-            nombre_archivo:archivo
-		   },
+            cliente:cliente,
+			catalogo:catalogo,
+			tipo:tipo
+		   				},
 		   type: "POST",
             success: function(data) {
-           $('#respuestas_importador_cuerpo').html(data);
-		   $( "#boton_aceptar_importar" ).prop( "disabled", false );
-          }
-      });*/
+           $('#divCatalogo').html(data);
+		  }
+      });
   	
 }
 
