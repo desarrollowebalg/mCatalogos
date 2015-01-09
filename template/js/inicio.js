@@ -33,9 +33,25 @@ function controladorAcciones(accion,data,divResultado){
 }
 
 function redimensionarCatalogos(){
-	altoDiv=$("#adm_content").height();
-	console.log(altoDiv);
-	$("#divContenedorCatalogo").css("height",(altoDiv-5)+"px");
+	altoDivCat=$("#adm_content").height();
+	anchoDivCat=parseFloat($("#adm_content").width());
+	console.log(altoDivCat);
+	console.log(anchoDivCat-12);
+
+
+
+	anchoDivs=(anchoDivCat-12) / 3;
+
+	console.log("Ancho divs "+anchoDivs);
+
+
+
+	$("#divContenedorCatalogo").css("height",(altoDivCat-4)+"px");
+	$("#divContenedorCatalogo").css("width",(anchoDivCat-2)+"px");
+
+
+
+
 }
 
 function existeCatalogos(){
