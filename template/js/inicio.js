@@ -34,6 +34,22 @@ $(document).ready(function(){
 		}
    	});
 	
+	$("#dialogoSubirArchivo").dialog({
+		autoOpen: false,
+		height: 500,
+		width: 400,
+		modal: true,
+		buttons: {
+			Cancelar: function() {
+				$("#dialogoSubirArchivo").dialog( "close" );
+			},
+			Aceptar:function(){
+				//recorre_select();
+			}
+		}
+   	});
+	
+	
 	
 });
 /*
@@ -140,7 +156,7 @@ function dibujArbol(){
 		ajaxCatalogos("dibujArbol","controlador",parametros,"divCatalogo","divCatalogo","GET");
 }
 
-function pintaContenido(cliente,catalogo,tipo){
-      	parametros="action=pintaContenido&cliente="+cliente+"&catalogo="+catalogo+"&tipo="+tipo;
+function pintaContenido(cliente,catalogo,tipo,rutaRaiz){
+      	parametros="action=pintaContenido&cliente="+cliente+"&catalogo="+catalogo+"&tipo="+tipo+"&rutaRaiz="+rutaRaiz;
 		ajaxCatalogos("pintaContenido","controlador",parametros,"divCatalogo","divCatalogo","POST");
 }

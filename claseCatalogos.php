@@ -58,9 +58,10 @@ class catalogos{
 	*/
 	public function creaNuevoCatalogo($idCliente,$nombre){
 		$objDb=$this->iniciarConexionDb();
-		$sqlE="INSERT INTO CAT2_CATALOGO (ID_CLIENTE,NOMBRE,FECHA_CREACION) VALUES('".$idCliente."','".
+		$sqlE="INSERT INTO CAT2_CATALOGO (ID_CLIENTE,NOMBRE,FECHA_CREACION,RUTA_RAIZ) VALUES('".$idCliente."','".
 																						 $nombre."','".
-																						 date('Y-m-d H:i:s')."')";
+																						 date('Y-m-d H:i:s')."','cat/".
+																						 $idCliente.'_'.$nombre."/')";
 		$resE=$objDb->sqlQuery($sqlE);
 		
 		if($resE){
@@ -94,7 +95,7 @@ class catalogos{
  	public function dibujArbol($idCliente){
 	$cadenArbol = '';
 	 $objDb=$this->iniciarConexionDb();
-		$sqlE="SELECT ID_CATALOGO,NOMBRE FROM CAT2_CATALOGO WHERE ID_CLIENTE =".$idCliente." ORDER BY NOMBRE";
+		$sqlE="SELECT ID_CATALOGO,NOMBRE,RUTA_RAIZ FROM CAT2_CATALOGO WHERE ID_CLIENTE =".$idCliente." ORDER BY NOMBRE";
 		$resE=$objDb->sqlQuery($sqlE);
 		
 		if($objDb->sqlEnumRows($resE)>0){
@@ -102,7 +103,7 @@ class catalogos{
 		    while($rowADD=$objDb->sqlFetchArray($resE)){
 				  $cadenArbol .= '<li><span class="folder">'.$rowADD['NOMBRE'].'</span>
 										<ul>'.
-  											$this->tipoArchivo($idCliente,$rowADD['ID_CATALOGO'])
+  											$this->tipoArchivo($idCliente,$rowADD['ID_CATALOGO'],$rowADD['RUTA_RAIZ'])
 										.'</ul></li>';	
 			}
 			$cadenArbol .= '</ul>';
@@ -116,7 +117,7 @@ class catalogos{
 	*@paramas 				
 	*
 	*/
- 	public function tipoArchivo($idCliente,$idCatalogo){
+ 	public function tipoArchivo($idCliente,$idCatalogo,$ruta){
 		$cadenaCarpeta = '';
 	    $objDb=$this->iniciarConexionDb();
 		$sqlF="SELECT * FROM CAT2_TIPO_ARCHIVO";
@@ -127,14 +128,15 @@ class catalogos{
 		    while($rowADD=$objDb->sqlFetchArray($resF)){
 					   $cadenaCarpeta .= '<li><span class="folder" onclick="pintaContenido('.$idCliente.','.
 					   																$idCatalogo.','.
-																					$rowADD['ID_TIPO_ARCHIVO'].');" style="cursor:pointer;">'.
+																					$rowADD['ID_TIPO_ARCHIVO'].',\''.
+																					$ruta.$rowADD['ID_TIPO_ARCHIVO'].'\');" style="cursor:pointer;">'.
 																					$rowADD['DESCRIPCION'].'</span>';
 			}
 	   }
 	   return $cadenaCarpeta;
      }
 	 
-   public function PintaContenido($cliente,$catalogo,$tipo){
+   public function PintaContenido($cliente,$catalogo,$tipo,$rutaRaiz){
 	    $objDb=$this->iniciarConexionDb();
 	   	$tabla = '';
 	
@@ -169,6 +171,8 @@ class catalogos{
 																		   .$row['RUTA'].'\',\''.$row['ID_TIPO'].'\',\''.$row['ID_ARCHIVO']
 																		   .'\');" style="cursor:pointer;">Ver detalles</td></tr>';			
 			}
+		$tabla .= '<tr align="center"><td width="50" >Sin Imagen</td><td> Sin Archivo</td><td width="80"><input type="button" onclick="subirArchivo();" value="subir"/></td></tr>';	
+		$tabla .= '<tr align="center"><td width="50" >Sin Imagen</td><td> Sin Archivo</td><td width="80"><input type="text" id="rutaRaiz"  value="'.$rutaRaiz.'"/></td></tr>';
 	 	$tabla .= '</table>';
 	}else{
 			$tabla = '<table border="1" width="100%" style="border-collapse:collapse;" bordercolor="#EAEAEA">';

@@ -168,3 +168,9 @@ function recorre_select(){
 	ajax.send(null);
   //alert(todos+'|'+ $("#origen option").length);	
 }
+
+function subirArchivo(){
+ $("#dialogoSubirArchivo").dialog( "open" );	
+ var carpeta = $("#rutaRaiz").val();
+ document.getElementById('target').src = 'http://movi.2gps.net/public/libs/phpProcesos/mSubirArchivo.php?carpeta=/cat/'+carpeta;
+}
