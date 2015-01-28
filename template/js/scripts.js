@@ -80,7 +80,9 @@ function formularioCatNuevo(){
 /*******************************************************************************/
 
 function verDetalles(titulo,resumen,ruta,imagen,tipo,idArchivo){
-	
+	//se limpia el detalle anterior
+	$("#divCatalogoDetalle").html("");
+	$("#btnAsignarUsuarios").hide();
 	// $("#divCatalogo").html(cliente+' '+catalogo+' '+tipo);
 	 $('#divCatalogoDetalle').html('Extrayendo datos espere...');
      var origen = imagen;
@@ -88,22 +90,23 @@ function verDetalles(titulo,resumen,ruta,imagen,tipo,idArchivo){
 	 if(tipo == '2'){
 		origen = ruta;
 	 }
-	 
+	 //'<tr> <td colspan="2" align="center" style=" background-color:#0072A8;color:#FFF;"> Detalles</td></tr>'+
 	  var tabla = '<table border="1" width="100%" style="border-collapse:collapse;" bordercolor="#EAEAEA">'+
-					 '<tr> <td colspan="2" align="center" style=" background-color:#0072A8;color:#FFF;"> Detalles</td></tr>'+
 					 '<tr> <td colspan="2" align="center"><img src="'+origen+'" width="200 height="200" /></td></tr>'+
 					 '<tr> <td colspan="2" align="center">&nbsp;</td></tr>'+
 					 '<tr> <td style=" background-color:#0072A8;color:#FFF;"  width="80"> Nombre</td><td>'+titulo+'</td></tr>'+
 					 '<tr> <td style=" background-color:#0072A8;color:#FFF;"  width="80"> Resumen</td><td>'+resumen+'</td></tr>'+
 					 '<tr> <td colspan="2" align="center">&nbsp;</td></tr>'+
-					 '<tr> <td colspan="2" align="center"> <input type="button" value="Usuarios Asignados" onclick="usuariosAsignados('+idArchivo+');" /></td></tr>'+
-				 '</table>';
+				 '</table><input type="hidden" id="detalleArchivo" value="'+idArchivo+'" />';
+	//'<tr> <td colspan="2" align="center"> <input type="button" value="Usuarios Asignados" onclick="usuariosAsignados('+idArchivo+');" /></td></tr>'+
 	  $('#divCatalogoDetalle').html(tabla);
-	  	
+	 $("#btnAsignarUsuarios").show();//se muestra el boton para la asignacion de usuarios
 }
 
 /*******************************************************************************/
-function usuariosAsignados(idArchivo){
+//function usuariosAsignados(idArchivo){
+function usuariosAsignados(){
+	idArchivo=$("#detalleArchivo").val();
   $.ajax({
             url: "index.php?m=mCatalogos&c=mUsuariosAsignados",
 		    data : {

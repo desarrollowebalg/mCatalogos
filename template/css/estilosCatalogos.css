@@ -1,4 +1,10 @@
 #divContenedorCatalogo{position: absolute;border:1px solid #FF0000;}
-#divArbol{border:1px solid blue;height:99.7%;float:left;margin:2px 2px 2px 0px;}
-#divCatalogo{border:1px solid green;height:99.7%;float:left;margin:2px;}
-#divCatalogoDetalle{border:1px solid green;height:99.7%;float:left;margin:2px;}
+
+#divCArbol{border:1px solid #a6c9e2;height:99.7%;float:left;margin:2px 2px 2px 0px;}
+
+#divCCatalogo{border:1px solid #a6c9e2;height:99.7%;float:left;margin:2px;}
+#divCCatalogoDetalle{border:1px solid #a6c9e2;height:99.7%;float:left;margin:2px;}
+
+#divArbol{border:1px solid blue;height:99.7%;float:left;margin:2px 2px 2px 0px;overflow: auto;}
+#divCatalogo{border:1px solid green;height:99.7%;float:left;margin:2px;overflow: auto;}
+#divCatalogoDetalle{border:1px solid green;height:99.7%;float:left;margin:2px; overflow: auto;}
