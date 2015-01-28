@@ -108,7 +108,7 @@ class catalogos{
 			}
 			$cadenArbol .= '</ul>';
 	   }
-	  echo 	 '<table border="0" width="100%"><tr><td align="center" style=" background-color:#0072A8;color:#FFF;">Cat&aacute;logos</td></tr> </table>'.$cadenArbol;
+	  echo 	 $cadenArbol;
      }
 	 
 	   /**
@@ -163,7 +163,7 @@ class catalogos{
 	$cnt = $objDb->sqlEnumRows($qry);
 	if($cnt>0){ 
 	 	$tabla = '<table border="1" width="100%" style="border-collapse:collapse;" bordercolor="#EAEAEA">';
-	 	$tabla .= '<tr><td colspan="3" align="center" style=" background-color:#0072A8;color:#FFF;">Archivos</td></tr>';
+	 	//$tabla .= '<tr><td colspan="3" align="center" style=" background-color:#0072A8;color:#FFF;">Archivos</td></tr>';
 			while($row = $objDb->sqlFetchArray($qry)){	
 		 	      $tabla .= '<tr align="center"><td width="50" ><img src="'.$row['RUTA'].'" width="50" height="50" /></td><td>'
 				  														   .$row['TITULO'].'</td><td width="80" onclick="verDetalles(\''
@@ -175,10 +175,12 @@ class catalogos{
 		$tabla .= '<tr align="center"><td width="50" >Sin Imagen</td><td> Sin Archivo</td><td width="80"><input type="text" id="rutaRaiz"  value="'.$rutaRaiz.'"/></td></tr>';
 	 	$tabla .= '</table>';
 	}else{
-			$tabla = '<table border="1" width="100%" style="border-collapse:collapse;" bordercolor="#EAEAEA">';
-			$tabla .= '<tr align="center"> <td colspan="3"  style=" background-color:#0072A8;color:#FFF;">Archivos</td></tr>';
-			$tabla .= '<tr align="center"><td width="50" >Sin Imagen</td><td> Sin Archivo</td><td width="80">Sin detalles</td></tr>';	
-			$tabla .= '</table>';
+			$tabla="<div class='ui-state-highlight ui-corner-all' style='margin-top:20px;padding:0.7em;height:40px;width:210px;top:50%;left:50%;margin-top:-20px;margin-left:-105px;position:relative;'>
+			<p>
+				<span class='ui-icon ui-icon-info' style='float:left;margin-right:.3em;'></span>
+				<strong>No hay archivos en esta carpeta!</strong>
+			</p>
+			</div>";
 	}
 	return $tabla;
    }

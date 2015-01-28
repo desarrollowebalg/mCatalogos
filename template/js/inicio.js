@@ -9,6 +9,7 @@ $(document).ready(function(){
 		height: 150,
 		width: 350,
 		modal: true,
+		resizable:false,
 		buttons: {
 			Cancelar: function() {
 				$("#dialogoCrearCatalogo").dialog( "close" );
@@ -33,6 +34,18 @@ $(document).ready(function(){
 			}
 		}
    	});
+
+   	$("#btnNuevoCatalogo").click(function(){
+   		 $("#dialogoCrearCatalogo").dialog("open");
+   	});
+
+   	$("#btnSubirArchivo").click(function(){
+   		alert("Subir archivo");
+   	});
+
+   	$("#btnAsignarUsuarios").click(function(){
+   		usuariosAsignados();
+   	})
 	
 	$("#dialogoSubirArchivo").dialog({
 		autoOpen: false,
@@ -86,7 +99,7 @@ function controladorAcciones(accion,data,divResultado){
              			                '</div>'+
         			                    '</div>'; 
 			 }else{
-				 respuestaCatalogo  =  'todo correcto pintar otra opcion';
+				 //respuestaCatalogo  =  'todo correcto pintar otra opcion';
 				 dibujArbol();
 			 }
 		
@@ -129,10 +142,13 @@ function redimensionarCatalogos(){
 	$("#divContenedorCatalogo").css("height",(altoDivCat-4)+"px");
 	$("#divContenedorCatalogo").css("width",anchoDivCat+"px");
 	//se redimensionan los divs interiores
-	$("#divArbol").css("width",(anchoDivs-150)+"px");
-	$("#divCatalogo").css("width",(anchoDivs+72)+"px");
-	$("#divCatalogoDetalle").css("width",(anchoDivs+72)+"px");
+	$("#divCArbol").css("width",(anchoDivs-150)+"px");
+	$("#divCCatalogo").css("width",(anchoDivs+72)+"px");
+	$("#divCCatalogoDetalle").css("width",(anchoDivs+72)+"px");
 
+	$("#divArbol").css("height",(altoDivCat-80)+"px");
+	$("#divCatalogo").css("height",(altoDivCat-80)+"px");
+	$("#divCatalogoDetalle").css("height",(altoDivCat-80)+"px");
 }
 
 function existeCatalogos(){

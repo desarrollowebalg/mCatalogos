@@ -5,20 +5,42 @@
 <script type="text/javascript" src="{PATH}/js/demo.js"></script>
 
 <div id="divContenedorCatalogo">
-    <div id="divArbol"></div>
-    <div id="divCatalogo"></div>
-    <div id="divCatalogoDetalle"></div>
+    <div id="divCArbol">
+		<div class="ui-widget-header" style="padding:5px;width:94%;">Cat&aacute;logos</div>
+		<div id="divArbol" style="border:0px solid green;width:99%;"></div>
+    	<div id="btnArbol" style="border-top:1px solid #a6c9e2;float:left;width:99.9%;text-align:right;margin:0px;">
+    		<button id="btnNuevoCatalogo" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="height:25px;margin-top:5px;margin:5px;"><span class="ui-icon ui-icon-circle-plus " style="float:right;"></span>&nbsp;Nuevo Cat&aacute;logo</button>
+    	</div>
+    </div>
+    <div id="divCCatalogo">
+		<div class="ui-widget-header" style="padding:5px;width:97%;text-align:center;">Archivos</div>
+		<div id="divCatalogo" style="border:0px solid red;width:99.3%;"></div>
+		<div id="btnArbol" style="border-top:1px solid #a6c9e2;float:left;width:99.9%;text-align:right;margin:0px;">
+    		<button id="btnSubirArchivo" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="height:25px;margin-top:5px;margin:5px;"><span class="ui-icon ui-icon-circle-arrow-n " style="float:right;"></span>&nbsp;Subir Archivo</button>
+    	</div>
+    </div>
+    <div id="divCCatalogoDetalle">
+    	<div class="ui-widget-header" style="padding:5px;width:97%;text-align:center;">Detalles</div>
+    	<div id="divCatalogoDetalle" style="border:0px solid #FF0000;width:99.4%;"></div>
+		<div id="btnArbol" style="border-top:1px solid #a6c9e2;float:left;width:99.9%;text-align:right;margin:0px;">
+    		<button id="btnAsignarUsuarios" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="display:none;height:25px;margin-top:5px;margin:5px;"><span class="ui-icon ui-icon-circle-check " style="float:right;"></span>&nbsp;Asignar Usuarios</button>
+    	</div>
+    </div>
 </div>
 
 <input type="hidden" value="{IDCLIENTE}" id="idClienteCatalogo" />
 <input type="hidden" value="{IDUSUARIO}" id="idUsuarioCatalogo" />
 
 <!--div dialog crar catalogoo-->
- <div id="dialogoCrearCatalogo" title="Nuevo Cat&aacute;logo">
+ <div id="dialogoCrearCatalogo" title="Nuevo Cat&aacute;logo" style="display:none;">
  <br>
   <table width="100%" border="0" >
     <tr> <td width="15%">Nombre </td> <td><input type="text" style="width:100%;" id="nombreCatalogo"/></td></tr>
   </table>
  </div>
+<<<<<<< HEAD
   <div id="dialogoUsuariosAsignados" title="Usuarios"> </div>
   <div id="dialogoSubirArchivo" title="Subir Archivo"> <iframe src="" width="100%" height="100%" name="target" id="target" /> </div>
+=======
+  <div id="dialogoUsuariosAsignados" title="Usuarios"></div>
+>>>>>>> cb9d9361392f00d3c7aae4709b4047c638a33f1a
