@@ -35,11 +35,15 @@ if($_SERVER["HTTP_REFERER"]==""){
 			));
 			$tpl->pparse('controlador');
 		break;
+		
+		
 
 	}
 	
 	switch($_POST["action"]){
-		
+		case "pintaContenido":
+		 echo $objT->PintaContenido($_POST['cliente'],$_POST['catalogo'],$_POST['tipo']);
+		break;
 	}
 }
 ?>

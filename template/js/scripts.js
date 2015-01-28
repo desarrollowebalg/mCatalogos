@@ -1,3 +1,22 @@
+
+function nuevoAjax(){
+	var xmlhttp=false;
+	try {
+		xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+	}catch(e){
+		try{
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}catch(E){
+			xmlhttp = false;
+		}
+	}
+	if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
+		xmlhttp = new XMLHttpRequest();
+	}
+	return xmlhttp;
+}
+/*******************************************************************************/
+
 //funciones para el modulo
 function enviarNotificacion(accion){
 	var usuarios=usuariosTareasNotificaciones[0];
@@ -34,11 +53,12 @@ function enviarNotificacion(accion){
 	//se vacia el array generado
 	usuariosTareasNotificaciones.length=0;
 }
+/*******************************************************************************/
 function formularioCatNuevo(){
   $("#dialogoCrearCatalogo").dialog( "open" );	
 }
-
-function pintaContenido(cliente,catalogo,tipo){
+/*******************************************************************************/
+/*function pintaContenido(cliente,catalogo,tipo){
 	
 	// $("#divCatalogo").html(cliente+' '+catalogo+' '+tipo);
 	 $('#divCatalogo').html('Extrayendo datos espere...');
@@ -55,7 +75,9 @@ function pintaContenido(cliente,catalogo,tipo){
 		  }
       });
   	
-}
+}*/
+
+/*******************************************************************************/
 
 function verDetalles(titulo,resumen,ruta,imagen,tipo,idArchivo){
 	
@@ -67,7 +89,7 @@ function verDetalles(titulo,resumen,ruta,imagen,tipo,idArchivo){
 		origen = ruta;
 	 }
 	 
-	 var tabla = '<table border="1" width="100%" style="border-collapse:collapse;" bordercolor="#EAEAEA">'+
+	  var tabla = '<table border="1" width="100%" style="border-collapse:collapse;" bordercolor="#EAEAEA">'+
 					 '<tr> <td colspan="2" align="center" style=" background-color:#0072A8;color:#FFF;"> Detalles</td></tr>'+
 					 '<tr> <td colspan="2" align="center"><img src="'+origen+'" width="200 height="200" /></td></tr>'+
 					 '<tr> <td colspan="2" align="center">&nbsp;</td></tr>'+
@@ -80,6 +102,7 @@ function verDetalles(titulo,resumen,ruta,imagen,tipo,idArchivo){
 	  	
 }
 
+/*******************************************************************************/
 function usuariosAsignados(idArchivo){
   $.ajax({
             url: "index.php?m=mCatalogos&c=mUsuariosAsignados",
@@ -92,4 +115,56 @@ function usuariosAsignados(idArchivo){
 		  }
       });	
   $("#dialogoUsuariosAsignados").dialog( "open" );	
+}
+
+/*******************************************************************************/
+function recorre_select(){
+	var todos = '';
+	
+  $("#origen option").each(function(){
+	if(todos == ''){
+		todos = $(this).attr('value');
+	}else{
+		todos = todos+','+$(this).attr('value');
+	}
+   
+  });
+  todos = todos +'|'+ $("#id_menu").val();
+  
+  var ajax = nuevoAjax();
+    $("#letra_x").html('Guardando Datos');
+   $("#dialog_prog").dialog("open");
+  
+  if($("#origen option").length > 0){
+	  //actualiza
+	  ajax.open("GET", "index.php?m=mCatalogos&c=mActualizaBase&datos="+todos,true);
+  }else{
+	  // borra todo
+	  var id_submenu = $("#id_menu").val();
+	  ajax.open("GET", "index.php?m=mCatalogos&c=mBorraTodoBase&id_submenu="+id_submenu,true);
+  }
+   
+  	ajax.onreadystatechange=function() {
+		if (ajax.readyState==4) {
+				var result =ajax.responseText;
+				  console.log(result);
+				  if(result!=0){
+					   $("#dialog_prog").dialog("close");
+					   $("#letrero_x").html('Proceso realizado');
+					   $("#dialog_okey").dialog("open");
+					   
+
+					 //alert('cambios realizados');
+				  }else{
+					      $("#dialog_prog").dialog("close");
+					     $("#letrero_x").html('Falla al realizar proceso');
+						  $("#dialog_okey").dialog("open");
+					// alert('falla al realizar cambios');  
+				  }
+				 
+					//alert(result+'terminado');
+			}			
+		}		
+	ajax.send(null);
+  //alert(todos+'|'+ $("#origen option").length);	
 }

@@ -29,7 +29,7 @@ $(document).ready(function(){
 				$("#dialogoUsuariosAsignados").dialog( "close" );
 			},
 			Aceptar:function(){
-				//crearNuevoCatalogo();
+				recorre_select();
 			}
 		}
    	});
@@ -95,6 +95,11 @@ function controladorAcciones(accion,data,divResultado){
 		case "dibujArbol":
 		$("#divArbol").html(data);
 		break;
+		
+		case "pintaContenido":
+		 $("#"+divResultado).show().html(data);
+		break;
+		
 	}
 }
 
@@ -133,4 +138,9 @@ function dibujArbol(){
     	nombreCat        =$("#nombreCatalogo").val();
     	parametros="action=dibujArbol&idCliente="+idClienteCatalogo;
 		ajaxCatalogos("dibujArbol","controlador",parametros,"divCatalogo","divCatalogo","GET");
+}
+
+function pintaContenido(cliente,catalogo,tipo){
+      	parametros="action=pintaContenido&cliente="+cliente+"&catalogo="+catalogo+"&tipo="+tipo;
+		ajaxCatalogos("pintaContenido","controlador",parametros,"divCatalogo","divCatalogo","POST");
 }

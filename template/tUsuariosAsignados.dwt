@@ -1,13 +1,66 @@
+<script>
+$(document).ready(
+function(){
+ 
+ 	 $( "#dialog_prog" ).dialog({ 
+		               autoOpen: false
+		  }); 
+		  
+	 $( "#dialog_okey" ).dialog({ 
+		               autoOpen: false,
+					   title: "Mensaje", 
+		               buttons: {
+							Aceptar: function() {
+								
+								$("#dialog_okey").dialog("close");
+							},
+							
+   					   }
+		  }); 		  
+		  
+        $('.pasar').click(function() { return !$('#origen option:selected').remove().appendTo('#destino'); });  
+		$('.quitar').click(function() { return !$('#destino option:selected').remove().appendTo('#origen'); });
+		$('.pasartodos').click(function() { $('#origen option').each(function() { $(this).remove().appendTo('#destino'); }); });
+		$('.quitartodos').click(function() { $('#destino option').each(function() { $(this).remove().appendTo('#origen'); }); });
+		$('.submit').click(function() { $('#destino option').prop('selected', 'selected'); });
+
+	
+});
+
+</script>
+
 <table border="1" width="100%" height="100%" style="border-collapse:collapse;" bordercolor="#EAEAEA">
- <tr align="center" style=" background-color:#0072A8;color:#FFF;"> <td height="20"> Usuarios Existentes</td><td></td> <td> Usuarios Asignados </td></tr>
- <tr> <td> </td>
-      <td width="10"> 
-      		<input type="button" value=">>"/><br>
-            <input type="button" value=">  "/><br>
-            <input type="button" value="<  "/><br>
-            <input type="button" value="<<"/>
-      </td> 
- 	  <td> </td>
+ <tr align="center" style=" background-color:#0072A8;color:#FFF;"> 
+ 		<td height="20" width="48%"> Usuarios Existentes</td>
+        <td width="6%"></td> 
+        <td width="48%">Usuarios Asignados</td>
  </tr>
- <tr> <td colspan="3" height="20"> </td></tr>
+ <tr> <td> 
+  <select name="destino[]" id="destino" multiple="multiple" size="25" style="width:100%; height:100%;"  >
+      {SUBMENU_UC}
+  </select>
+ </td>
+      <td> 
+  				<input id="xx" type="button" class="quitar der" value="&nbsp;>&nbsp;">
+                <input id="xx" type="button" class="quitartodos der" value=">>">
+                <input id="xx" type="button" class="pasartodos izq" value="<<">
+                <input id="xx" type="button" class="pasar izq" value="&nbsp;<&nbsp;" >    
+      </td> 
+ 	  <td>
+        
+   <select name="origen[]" id="origen" multiple="multiple" size="25" style="width:100%; height:100%;">
+     {SUBMENU_UA}
+   </select>
+       </td>
+ </tr>
+ <tr> <td colspan="3" height="20"><input type="hidden" id="id_menu" value="{IDARCHIVO}" /></td></tr>
 </table>
+
+<div id="dialog_prog" align="center">
+    <br />
+     <h5 id="letra_x">.</h5>
+    <br />
+ <img   src="modules/mCatalogos/template/images/apb.gif" name="imagenes" id="imagenes"/>
+ </div>
+ 
+  <div id="dialog_okey" align="center" > <h5 id="letrero_x"> </h5></div>

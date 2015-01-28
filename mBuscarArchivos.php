@@ -17,10 +17,11 @@
 				   b.TITULO,
 				   b.RESUMEN,
 				   b.PATH,
-				   b.FORMATO,
+				   c.RUTA,
 				   b.VISIBLE 
 		    FROM CAT2_CATALOGO a 
 			INNER JOIN CAT2_ARCHIVO b ON a.ID_CATALOGO = b.ID_CATALOGO
+			INNER JOIN CAT2_FORMATOS c ON b.FORMATO = c.ID_FORMATO
 		    WHERE a.ID_CLIENTE = '.$_POST['cliente'].' AND 
 			      a.ID_CATALOGO = '.$_POST['catalogo'].' AND 
 				  b.ID_TIPO = '.$_POST['tipo'].' AND 
@@ -33,8 +34,8 @@
 	 	$tabla = '<table border="1" width="100%" style="border-collapse:collapse;" bordercolor="#EAEAEA">';
 	 	$tabla .= '<tr><td colspan="3" align="center" style=" background-color:#0072A8;color:#FFF;">Archivos</td></tr>';
 			while($row = $db->sqlFetchArray($qry)){	
-		 	      $tabla .= '<tr align="center"><td width="50" ><img src="'.$row['FORMATO'].'" width="50" height="50" /></td><td>'.$row['TITULO'].'</td><td width="80" onclick="verDetalles(\''.
-				  $row['TITULO'].'\',\''.$row['RESUMEN'].'\',\''.$row['PATH'].'\',\''.$row['FORMATO'].'\',\''.$row['ID_TIPO'].'\',\''.$row['ID_ARCHIVO'].'\');" style="cursor:pointer;">Ver detalles</td></tr>';			
+		 	      $tabla .= '<tr align="center"><td width="50" ><img src="'.$row['RUTA'].'" width="50" height="50" /></td><td>'.$row['TITULO'].'</td><td width="80" onclick="verDetalles(\''.
+				  $row['TITULO'].'\',\''.$row['RESUMEN'].'\',\''.$row['PATH'].'\',\''.$row['RUTA'].'\',\''.$row['ID_TIPO'].'\',\''.$row['ID_ARCHIVO'].'\');" style="cursor:pointer;">Ver detalles</td></tr>';			
 			}
 	 	$tabla .= '</table>';
 	}else{
