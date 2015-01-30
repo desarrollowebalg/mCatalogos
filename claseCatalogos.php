@@ -136,7 +136,7 @@ class catalogos{
 	   return $cadenaCarpeta;
      }
 	 
-   public function PintaContenido($cliente,$catalogo,$tipo,$rutaRaiz){
+   public function PintaContenido($cliente,$catalogo,$tipo,$rutaRaiz,$idUsuarioCatalogo,$formatos){
 	    $objDb=$this->iniciarConexionDb();
 	   	$tabla = '';
 	
@@ -171,19 +171,59 @@ class catalogos{
 																		   .$row['RUTA'].'\',\''.$row['ID_TIPO'].'\',\''.$row['ID_ARCHIVO']
 																		   .'\');" style="cursor:pointer;">Ver detalles</td></tr>';			
 			}
-		$tabla .= '<tr align="center"><td width="50" >Sin Imagen</td><td> Sin Archivo</td><td width="80"><input type="button" onclick="subirArchivo();" value="subir"/></td></tr>';	
-		$tabla .= '<tr align="center"><td width="50" >Sin Imagen</td><td> Sin Archivo</td><td width="80"><input type="text" id="rutaRaiz"  value="'.$rutaRaiz.'"/></td></tr>';
-	 	$tabla .= '</table>';
+		 	$tabla .= '</table>
+ 		               <input type="hidden" id="idCliente"   value="'.$cliente.'"/>
+			           <input type="hidden" id="idCatalogo"  value="'.$catalogo.'"/>
+					   <input type="hidden" id="idTipo"      value="'.$tipo.'"/>
+					   <input type="hidden" id="rutaRaiz"    value="'.$rutaRaiz.'"/>
+					   <input type="hidden" id="formatos"    value="'.$this->formatosPermitidos($tipo).'"/>
+					   <input type="hidden" id="idUsuarioCatalogo"  value="'.$idUsuarioCatalogo.'"/>';
 	}else{
-			$tabla="<div class='ui-state-highlight ui-corner-all' style='margin-top:20px;padding:0.7em;height:40px;width:210px;top:50%;left:50%;margin-top:-20px;margin-left:-105px;position:relative;'>
+			$tabla="<div class='ui-state-highlight ui-corner-all'style='margin-top:20px;padding:0.7em;height:40px;width:210px;top:50%;left:50%;margin-top:-20px;margin-left:-105px;position:relative;'>
 			<p>
 				<span class='ui-icon ui-icon-info' style='float:left;margin-right:.3em;'></span>
 				<strong>No hay archivos en esta carpeta!</strong>
+				<input type=\"hidden\" id=\"idCliente\"  value=\"".$cliente."\"/>
+				<input type=\"hidden\" id=\"idCatalogo\"  value=\"".$catalogo."\"/>
+				<input type=\"hidden\" id=\"idTipo\"  value=\"".$tipo."\"/>
+				<input type=\"hidden\" id=\"rutaRaiz\"  value=\"".$rutaRaiz."\"/>
+				<input type=\"hidden\" id=\"idUsuarioCatalogo\"  value=\"".$idUsuarioCatalogo."\"/>
+				<input type=\"hidden\" id=\"formatos\"  value=\"".$this->formatosPermitidos($tipo)."\"/>
 			</p>
 			</div>";
 	}
 	return $tabla;
    }
+   
+   
+   function formatosPermitidos($idTipoArchivo){
+   $objDb=$this->iniciarConexionDb();
+	
+	
+	$arreglo 		 = '';
+	$existe = 0;
+  
+ 	 $sql_x = 'SELECT a.DESCRIPCION FROM CAT2_FORMATOS a 
+				INNER JOIN CAT2_TIPO_ARCHIVO b ON a.ID_TIPO_ARCHIVO = b.ID_TIPO_ARCHIVO
+				WHERE  a.ID_TIPO_ARCHIVO ='.$idTipoArchivo;
+
+	 	$qry = $objDb->sqlQuery($sql_x);
+	    $cnt = $objDb->sqlEnumRows($qry);
+  if($cnt>0){ 
+    	while($row = $objDb->sqlFetchArray($qry)){	
+		   if($arreglo===''){
+			    $arreglo = '*.'.$row['DESCRIPCION'];
+		   }else{
+			       $arreglo .= ' , *.'.$row['DESCRIPCION'];
+		   }
+		 
+		}
+  }
+  
+   return $arreglo;
+}
+   
+   
 
 }//fin de la clase catalogos
 
