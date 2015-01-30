@@ -82,7 +82,7 @@ function formularioCatNuevo(){
 function verDetalles(titulo,resumen,ruta,imagen,tipo,idArchivo){
 	//se limpia el detalle anterior
 	$("#divCatalogoDetalle").html("");
-	$("#btnAsignarUsuarios").hide();
+	
 	// $("#divCatalogo").html(cliente+' '+catalogo+' '+tipo);
 	 $('#divCatalogoDetalle').html('Extrayendo datos espere...');
      var origen = imagen;
@@ -174,6 +174,12 @@ function recorre_select(){
 
 function subirArchivo(){
  $("#dialogoSubirArchivo").dialog( "open" );	
- var carpeta = $("#rutaRaiz").val();
- document.getElementById('target').src = 'http://movi.2gps.net/public/libs/phpProcesos/mSubirArchivo.php?carpeta=/cat/'+carpeta;
+  var carpeta    = $("#rutaRaiz").val();
+  var idCatalogo = $("#idCatalogo").val();
+  var idTipo	 = $("#idTipo").val();
+  var idUsuario	 = $("#idUsuarioCatalogo").val();
+  var formatos   = $("#formatos").val();
+  
+ document.getElementById('target').src = 'http://www.movi.2gps.net_tareas/public/libs/phpProcesos/mSubirArchivo.php?carpeta='+carpeta+'&idCatalogo='+idCatalogo+'&idTipo='+idTipo+'&idUsuario='+idUsuario+'&formatos='+formatos;
+// document.getElementById('target').src = 'http://movi.2gps.net/public/libs/phpProcesos/mSubirArchivo.php?carpeta='+carpeta+'&idCatalogo='+idCatalogo+'&idTipo='+idTipo+'&idUsuario='+idUsuario;
 }
