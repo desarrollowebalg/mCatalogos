@@ -1,5 +1,6 @@
 //declaraciones iniciales
-
+contadorElementosBorrar=0;
+funcionEliminar=false;
 $(document).ready(function(){
    	redimensionarCatalogos();
 	existeCatalogos();
@@ -41,13 +42,25 @@ $(document).ready(function(){
 
    	$("#btnSubirArchivo").click(function(){
 		subirArchivo();
-//   		alert("Subir archivo");
    	});
 
    	$("#btnAsignarUsuarios").click(function(){
    		usuariosAsignados();
-   	})
+   	});
 	
+   	$("#btnEliminarArchivos").click(function(){
+   		if(funcionEliminar==false){
+	   		$("#tbl_Archivos tr td").each(function (index) {//se habilitan los elementos
+	   			$("#"+this.id).show();
+		    });
+		    $("#filaBtnCancelar").show();//se muestra el boton de cancelar la accion
+		    funcionEliminar=true;
+   		}else{
+   			$("#confirmacionEliminacion").dialog("open");
+   		}
+   		
+   	});
+
 	$("#dialogoSubirArchivo").dialog({
 		autoOpen: false,
 		height: 400,
@@ -63,6 +76,37 @@ $(document).ready(function(){
 				$("#dialogoSubirArchivo").dialog( "close" );
 			}
 		}
+   	});
+
+   	$("#confirmacionEliminacion").dialog({
+   		autoOpen:false,
+   		height:130,
+   		width:350,
+   		modal:true,
+   		resizable:false,
+   		buttons:{
+   			Cancelar: function(){
+   				$("#confirmacionEliminacion").dialog("close");
+   				cancelarBorrado();
+   			},
+   			Aceptar: function(){
+   				eliminarArchivosCatalogo();
+   			}	
+   		}
+   	});
+
+   	$("#mensajesCatalogos").dialog({
+		autoOpen:false,
+   		height:130,
+   		width:380,
+   		modal:true,
+   		resizable:false,
+   		buttons:{
+   			Aceptar: function(){
+   				$("#mensajesCatalogos").dialog("close");
+   				cancelarBorrado();
+   			}	
+   		}
    	});
 	
 	
