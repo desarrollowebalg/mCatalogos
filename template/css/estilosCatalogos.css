@@ -8,3 +8,5 @@
 #divArbol{border:1px solid blue;height:99.7%;float:left;margin:2px 2px 2px 0px;overflow: auto;}
 #divCatalogo{border:1px solid green;height:99.7%;float:left;margin:2px;overflow: auto;}
 #divCatalogoDetalle{border:1px solid green;height:99.7%;float:left;margin:2px; overflow: auto;}
+
+.estiloArchivosTabla{background: #FFFFF;}

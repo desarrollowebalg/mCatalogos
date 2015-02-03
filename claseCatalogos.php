@@ -162,16 +162,22 @@ class catalogos{
 	$qry = $objDb->sqlQuery($sql);
 	$cnt = $objDb->sqlEnumRows($qry);
 	if($cnt>0){ 
-	 	$tabla = '<table border="1" width="100%" style="border-collapse:collapse;" bordercolor="#EAEAEA">';
-	 	//$tabla .= '<tr><td colspan="3" align="center" style=" background-color:#0072A8;color:#FFF;">Archivos</td></tr>';
-			while($row = $objDb->sqlFetchArray($qry)){	
-		 	      $tabla .= '<tr align="center"><td width="50" ><img src="'.$row['RUTA'].'" width="50" height="50" /></td><td>'
+	 	$tabla = '<form name="frmArchivoCat" id="frmArchivoCat"><table border="1" id="tbl_Archivos" width="100%" style="border-collapse:collapse;" bordercolor="#EAEAEA">';
+	 	//$tabla. = '<tr id="filaBtnCancelar"><td coslpan="4"></td></tr>';
+	 	$tabla .= '<tr id="filaBtnCancelar" style="display:none;"><td colspan="4" align="center"><button type="button" id="btnCancelarBorrado" onclick="cancelarBorrado()" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="height:25px;margin-top:5px;margin:5px;"><span class="ui-icon ui-icon-locked " style="float:right;"></span>&nbsp;Cancelar</button></td></tr>';
+			while($row = $objDb->sqlFetchArray($qry)){
+				$chk="chk_".$row["ID_ARCHIVO"];  $chk1="chk_".$row["ID_ARCHIVO"];  $idFila="id_".$row["ID_ARCHIVO"];
+		 	    $tabla .= '<tr id="'.$idFila.'" class="estiloArchivosTabla" align="center"><td id="'.$chk1.'" width="13" style="display:none;"><input type="checkbox" onclick="marcarArchivo(\''.$idFila.'\')" value="'.$row["ID_ARCHIVO"].'" name="chkEliminar" id="'.$chk.'" /></td><td width="50" ><img src="'.$row['RUTA'].'" width="50" height="50" /></td><td>'
 				  														   .$row['TITULO'].'</td><td width="80" onclick="verDetalles(\''
 																		   .$row['TITULO'].'\',\''.$row['RESUMEN'].'\',\''.$row['PATH'].'\',\''
 																		   .$row['RUTA'].'\',\''.$row['ID_TIPO'].'\',\''.$row['ID_ARCHIVO']
-																		   .'\');" style="cursor:pointer;">Ver detalles</td></tr>';			
+																		   .'\');" style="cursor:pointer;"><img src="public/images/mostrar2.png" border="0"></td></tr>';
 			}
+<<<<<<< HEAD
 		 	$tabla .= '</table>
+=======
+		 	$tabla .= '</table></form>
+>>>>>>> f138702c3e0d6fcb957995c7d3c2dbe69637cd70
  		               <input type="hidden" id="idCliente"   value="'.$cliente.'"/>
 			           <input type="hidden" id="idCatalogo"  value="'.$catalogo.'"/>
 					   <input type="hidden" id="idTipo"      value="'.$tipo.'"/>
