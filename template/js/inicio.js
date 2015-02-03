@@ -100,7 +100,7 @@ $(document).ready(function(){
    		height:130,
    		width:380,
    		modal:true,
-   		resizable:false,
+   		resizable:true,
    		buttons:{
    			Aceptar: function(){
    				$("#mensajesCatalogos").dialog("close");
@@ -174,6 +174,17 @@ function controladorAcciones(accion,data,divResultado){
 		
 		case "pintaContenido":
 		 $("#"+divResultado).show().html(data);
+		break;
+		case "borrarArchivos":
+			$("#"+divResultado).show().html(data);
+			valores=data.split("|||");
+			if(valores==1){
+				
+				$("#"+divResultado).html("Cambios realizados en el Catalogo")//guardo
+			}else{
+				//error al borrar
+				$("#"+divResultado).html("Ha ocurrido un error al eliminar el archivo.");
+			}
 		break;
 		
 	}

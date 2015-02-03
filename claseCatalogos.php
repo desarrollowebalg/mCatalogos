@@ -32,7 +32,41 @@ class catalogos{
    		return $objBd;
    	}
 
-/**
+   	function borrarArchivos($archvos){
+   		$objDb=$this->iniciarConexionDb();
+   		//primero se extraen los usuarios relacionados con el archivo
+   		$usuariosPrevios="";
+   		$archivos=explode(",",$archivos);
+   		$mensaje="";
+   		for($i=0;$i<count($archivos);$i++){
+			$sql="SELECT ID_USUARIO_ASIGNADO FROM CAT2_ARCHIVO_USUARIO WHERE ID_ARCHIVO='".$archivos[$i]."'";
+   			$res=$objDb->sqlQuery($sql);
+
+   			while($row=$objDb->sqlFetchArray($res)){
+				if($usuariosPrevios==""){
+	   				$usuariosPrevios=$row["ID_USUARIO_ASIGNADO"];
+	   			}else{
+	   				$usuariosPrevios=$usuariosPrevios.",".$row["ID_USUARIO_ASIGNADO"];
+	   			}
+   			}
+   		
+			//se procede a eliminar el arciv
+   			$sql="DELETE FROM CAT2_ARCHIVO_USUARIO WHERE ID_ARCHIVO='".$archivos[$i]."'";
+   			$res=$objDb->sqlQuery($sql);
+   			if($res){
+   				$sql1="DELEte FROM CAT2_ARCHIVO WHERE ID_ARCHIVO='".$archivos[$i]."'";
+   				$res1=$objDb->sqlQuery($sql1);
+   				if($res1){
+   					$mensaje=1;
+   				}else{
+   					$mensaje=0;
+   				}
+   			}
+   		}
+   		$mensaje=$mensaje."|||".$usuariosPrevios;
+   		return $mensaje;
+   	}
+	/**
 	*@method 		avisoCatalogosExistentes
 	*@description 	Funcion para pintar aviso si no hay catalogos para el cliente
 	*@paramas 				

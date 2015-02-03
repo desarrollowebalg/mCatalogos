@@ -11,9 +11,7 @@ if($_SERVER["HTTP_REFERER"]==""){
 	include "claseCatalogos.php";
 	//se instancia la clase que contiene las funciones de los catalogos
 	$objT=new catalogos();
-	
 	switch($_GET["action"]){
-		
 		case "avisoCatalogosExistentes":
 		 if($objT->avisoCatalogosExistentes((int)$_GET["idCliente"])===0){
 			echo  0;
@@ -21,28 +19,25 @@ if($_SERVER["HTTP_REFERER"]==""){
 			 echo 1;
 		 }
 		break;
-
 		case "creaNuevoCatalogo":
 		 $objT->creaNuevoCatalogo($_GET["idCliente"],$_GET["nombre"]);
 		break;
-
 		case "dibujArbol":
-		$tpl->set_filenames(array('controlador' => 'tCrearArbol'));
-		
+		$tpl->set_filenames(array('controlador' => 'tCrearArbol'));		
 		    $tpl->assign_vars(array(
 				'ARBOL'          	=> $objT->dibujArbol($_GET["idCliente"])
 				
 			));
 			$tpl->pparse('controlador');
 		break;
-		
-		
-
 	}
 	
 	switch($_POST["action"]){
-		 case "pintaContenido":
-		 echo $objT->PintaContenido($_POST['cliente'],$_POST['catalogo'],$_POST['tipo'],$_POST['rutaRaiz'],$_POST['idUsuario'],$_POST['formato']);
+		case "pintaContenido":
+			echo $objT->PintaContenido($_POST['cliente'],$_POST['catalogo'],$_POST['tipo'],$_POST['rutaRaiz'],$_POST['idUsuario'],$_POST['formato']);
+		break;
+		case "borrarArchivos":
+			echo $res=$objT->borrarArchivos($_POST["archvos"]);
 		break;
 	}
 }

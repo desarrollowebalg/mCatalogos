@@ -226,12 +226,18 @@ function eliminarArchivosCatalogo(){
 	 		}	
 	 	}
 	}
-	console.log(elementos)
+	
 	if(elementos==""){
 		$("#confirmacionEliminacion").dialog("close");
 		$("#mensajesCatalogos").html("<p><span class='ui-icon ui-icon-alert' style='float:left;'></span>&nbsp;¿Debe seleccionar un archivo del listado para poder borrarlo?</p>");
 		$("#mensajesCatalogos").dialog("open");
 	}else{
 		console.log("Eliminar archivos")
+		console.log(elementos)
+		$("#confirmacionEliminacion").dialog("close");
+		//ajaxCatalogos(accion,c,parametros,divCarga,divResultado,tipoPeticion)
+		parametros="action=borrarArchivos&archvos="+elementos
+		ajaxCatalogos("borrarArchivos","controlador",parametros,"mensajesCatalogos","mensajesCatalogos","POST");
+		$("#mensajesCatalogos").dialog("open");
 	}
 }
