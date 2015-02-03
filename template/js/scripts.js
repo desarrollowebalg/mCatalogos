@@ -1,3 +1,4 @@
+var arregloUsuarios	= Array();
 
 function nuevoAjax(){
 	var xmlhttp=false;
@@ -101,6 +102,7 @@ function verDetalles(titulo,resumen,ruta,imagen,tipo,idArchivo){
 	//'<tr> <td colspan="2" align="center"> <input type="button" value="Usuarios Asignados" onclick="usuariosAsignados('+idArchivo+');" /></td></tr>'+
 	  $('#divCatalogoDetalle').html(tabla);
 	 $("#btnAsignarUsuarios").show();//se muestra el boton para la asignacion de usuarios
+	 $("#btnNotiUsuarios").show();//se muestra el boton para la asignacion de usuarios
 }
 
 /*******************************************************************************/
@@ -118,6 +120,21 @@ function usuariosAsignados(){
 		  }
       });	
   $("#dialogoUsuariosAsignados").dialog( "open" );	
+}
+
+/*******************************************************************************/
+
+function usuariosNotificar(){
+	
+  $.ajax({
+            url: "index.php?m=mCatalogos&c=mUsuariosNotificar",
+		    type: "POST",
+            success: function(data) {
+            console.log(data);
+			//$('#dialogoUsuariosAsignados').html(data);
+		  }
+      });	
+//  $("#dialogoUsuariosAsignados").dialog( "open" );	
 }
 
 /*******************************************************************************/
@@ -180,40 +197,71 @@ function subirArchivo(){
   var idUsuario	 = $("#idUsuarioCatalogo").val();
   var formatos   = $("#formatos").val();
   
- document.getElementById('target').src = 'http://localhost/sitio2/public/libs/phpProcesos/mSubirArchivo.php?carpeta='+carpeta+'&idCatalogo='+idCatalogo+'&idTipo='+idTipo+'&idUsuario='+idUsuario+'&formatos='+formatos;
+ document.getElementById('target').src = 'http://www.movi.2gps.net_tareas/public/libs/phpProcesos/mSubirArchivo.php?carpeta='+carpeta+'&idCatalogo='+idCatalogo+'&idTipo='+idTipo+'&idUsuario='+idUsuario+'&formatos='+formatos;
 // document.getElementById('target').src = 'http://movi.2gps.net/public/libs/phpProcesos/mSubirArchivo.php?carpeta='+carpeta+'&idCatalogo='+idCatalogo+'&idTipo='+idTipo+'&idUsuario='+idUsuario;
 }
-/*Funciones para la eliminacion*/
-function cancelarBorrado(){
-	$("#tbl_Archivos tr td").each(function (index) {//se recorren los tds
-		$("#"+this.id).hide();//id del elemento que se marcara)
-    });
-    $("#tbl_Archivos tr").each(function (index) {//se recorren los tds
-    	$("#"+this.id).removeClass("ui-state-highlight").addClass("estiloArchivosTabla");
-    });
-	for (var i=0;i<document.frmArchivoCat.elements.length;i++){
-	 	if (document.frmArchivoCat.elements[i].type=="checkbox"){
-			document.frmArchivoCat.elements[i].checked=0;
-	 	}
-	}
-    $("#filaBtnCancelar").hide();//se muestra el boton de cancelar la accion
-    $("#btnEliminarArchivos").html("<span class='ui-icon ui-icon-trash ' style='float:right;'></span>&nbsp;Borrar Archivo(s)");
-    contadorElementosBorrar=0;
-    funcionEliminar=false;
+
+
+/*
+function usuarioDeasignado(valor){
+console.log('valor que llego : '+valor);
+
+	var contador = 1;
+ if(valor!==null){ 
+  if(arregloUsuarios.length ===0){
+   	arregloUsuarios.push(valor);	  
+  }else{
+	  for(i=0;i<arregloUsuarios.length;i++){
+		  if(arregloUsuarios[i]!==valor && parseInt(contador) === parseInt(arregloUsuarios.length)){
+				 console.log((arregloUsuarios[i])+'!=='+valor+'&&'+contador+' === '+arregloUsuarios.length); 
+				 arregloUsuarios.push(valor);	
+		  }else{
+             contador++;
+		  }
+	  }
+  }
+
+   
+   for(j=0;j<arregloUsuarios.length;j++){
+	  console.log(arregloUsuarios[j]);	 
+   }
+ 
+ }
 }
 
-function marcarArchivo(idFila){
-	//$("#"+idFila).css("background","#F78181");
-	if($("#"+idFila).hasClass("estiloArchivosTabla")){
-		contadorElementosBorrar=contadorElementosBorrar+1;
-		$("#"+idFila).removeClass("estiloArchivosTabla").addClass("ui-state-highlight");
-		$("#btnEliminarArchivos").html("<span class='ui-icon ui-icon-trash' style='float:right;'></span>&nbsp;Borrar "+contadorElementosBorrar+" archivo(s)");//cambiar el texto del boton
+function limpiArreglo(valor){
+	  for(k=0;k<arregloUsuarios.length;k++){
+		   if(parseInt(arregloUsuarios[k])===parseInt(valor)){
+			    console.log('a quitar elemento:'+valor);
+				arregloUsuarios.splice(k);
+		   }
+	   }
+	   console.log('------------');
+	    for(j=0;j<arregloUsuarios.length;j++){
+	      console.log(arregloUsuarios[j]);	 
+        }
+}
+*/
 
+function construyeArregloNoti(valor,tipo){
+    var todos = '';
+	if(tipo =='1'){
+		todos = valor;
 	}else{
-		$("#"+idFila).removeClass("ui-state-highlight").addClass("estiloArchivosTabla");
+		 $("#"+valor+" option").each(function(){
+			if(todos == ''){
+				todos = $(this).attr('value');
+			}else{
+				todos = todos+','+$(this).attr('value');
+			}
+		   
+		  });
 	}
+ llenaVacia(tipo,todos)
+ //console.log('tipo:'+tipo+'--'+todos); 	
 }
 
+<<<<<<< HEAD
 function eliminarArchivosCatalogo(){
 	var elementos="";
 	for (var i=0;i<document.frmArchivoCat.elements.length;i++){//se recorre el formulario para saber los elementos seleccionados
@@ -239,5 +287,25 @@ function eliminarArchivosCatalogo(){
 		parametros="action=borrarArchivos&archvos="+elementos
 		ajaxCatalogos("borrarArchivos","controlador",parametros,"mensajesCatalogos","mensajesCatalogos","POST");
 		$("#mensajesCatalogos").dialog("open");
+=======
+function llenaVacia(tipo,cadena){
+  if(arregloUsuarios.length ===0 ){
+    if(tipo == '1'){
+	        arregloUsuarios.push(cadena);	  	
+	}else{
+	   var partes = cadena.split(',');
+	    for(c=0;c<partes.length;c++){
+		  	 arregloUsuarios.push(partes[c]);	  		
+		}
+>>>>>>> 84ebc3492c2f8ccdd15686df04f71f265e5f03ae
 	}
+  }else{
+	if(tipo == '1'){
+	        arregloUsuarios.push(cadena);	  	
+	}
+  }
+  
+        for(j=0;j<arregloUsuarios.length;j++){
+	      console.log(arregloUsuarios[j]);	 
+        }
 }

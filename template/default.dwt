@@ -16,8 +16,7 @@
 		<div class="ui-widget-header" style="padding:5px;width:97%;text-align:center;">Archivos</div>
 		<div id="divCatalogo" style="border:0px solid red;width:99.3%;"></div>
 		<div id="btnArbol" style="border-top:1px solid #a6c9e2;float:left;width:99.9%;text-align:right;margin:0px;">
-    		<button id="btnEliminarArchivos" type="button" class="ui-button ui-widget ui-state-error ui-corner-all ui-button-text-only" style="height:25px;margin-top:5px;margin:5px;"><span class="ui-icon ui-icon-trash " style="float:right;"></span>&nbsp;Borrar Archivo(s)</button>
-    		<button id="btnSubirArchivo" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="height:25px;margin-top:5px;margin:5px;"><span class="ui-icon ui-icon-circle-arrow-n " style="float:right;"></span>&nbsp;Subir Archivo</button>
+    		<button id="btnSubirArchivo" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="height:25px;margin-top:5px;margin:5px;"><span class="ui-icon ui-icon-circle-arrow-n " style="float:right;"></span>&nbsp;Subir Archivo</button>
     	</div>
     </div>
     <div id="divCCatalogoDetalle">
@@ -25,6 +24,7 @@
     	<div id="divCatalogoDetalle" style="border:0px solid #FF0000;width:99.4%;"></div>
 		<div id="btnArbol" style="border-top:1px solid #a6c9e2;float:left;width:99.9%;text-align:right;margin:0px;">
     		<button id="btnAsignarUsuarios" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="display:none;height:25px;margin-top:5px;margin:5px;"><span class="ui-icon ui-icon-circle-check " style="float:right;"></span>&nbsp;Asignar Usuarios</button>
+            <button id="btnNotiUsuarios" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="display:none;height:25px;margin-top:5px;margin:5px;"><span class="ui-icon ui-icon-circle-check " style="float:right;"></span>&nbsp;Notificar a Usuarios</button>
     	</div>
     </div>
 </div>
@@ -43,5 +43,3 @@
   <div id="dialogoUsuariosAsignados" title="Usuarios"> </div>
   <div id="dialogoSubirArchivo" title="Subir Archivo"> <iframe src="" width="97%" height="97%" frameborder="0" name="target" id="target" /> </div>
 
-  <div id="confirmacionEliminacion" title="Confirmaci&oacute;n" style="display:none;"><p><span class="ui-icon ui-icon-alert" style="float:left;"></span>&nbsp;¿Desea eliminar los archivos seleccionados?</p></div>
-  <div id="mensajesCatalogos" style="display:none;"></div>

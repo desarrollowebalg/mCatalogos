@@ -1,6 +1,5 @@
 //declaraciones iniciales
-contadorElementosBorrar=0;
-funcionEliminar=false;
+
 $(document).ready(function(){
    	redimensionarCatalogos();
 	existeCatalogos();
@@ -28,6 +27,7 @@ $(document).ready(function(){
 		modal: true,
 		buttons: {
 			Cancelar: function() {
+				arregloUsuarios=[];
 				$("#dialogoUsuariosAsignados").dialog( "close" );
 			},
 			Aceptar:function(){
@@ -42,25 +42,17 @@ $(document).ready(function(){
 
    	$("#btnSubirArchivo").click(function(){
 		subirArchivo();
+//   		alert("Subir archivo");
    	});
 
    	$("#btnAsignarUsuarios").click(function(){
    		usuariosAsignados();
-   	});
+   	})
 	
-   	$("#btnEliminarArchivos").click(function(){
-   		if(funcionEliminar==false){
-	   		$("#tbl_Archivos tr td").each(function (index) {//se habilitan los elementos
-	   			$("#"+this.id).show();
-		    });
-		    $("#filaBtnCancelar").show();//se muestra el boton de cancelar la accion
-		    funcionEliminar=true;
-   		}else{
-   			$("#confirmacionEliminacion").dialog("open");
-   		}
-   		
-   	});
-
+	$("#btnNotiUsuarios").click(function(){
+   		usuariosNotificar();
+   	})
+	
 	$("#dialogoSubirArchivo").dialog({
 		autoOpen: false,
 		height: 400,
@@ -77,6 +69,7 @@ $(document).ready(function(){
 			}
 		}
    	});
+<<<<<<< HEAD
 
    	$("#confirmacionEliminacion").dialog({
    		autoOpen:false,
@@ -108,6 +101,8 @@ $(document).ready(function(){
    			}	
    		}
    	});
+=======
+>>>>>>> 84ebc3492c2f8ccdd15686df04f71f265e5f03ae
 	
 	
 	
@@ -194,6 +189,9 @@ function redimensionarCatalogos(){
 	altoDivCat=$("#adm_content").height();
 	anchoDivCat=parseFloat($("#adm_content").width());
 	anchoDivs=(anchoDivCat-14) / 3;
+	console.log(altoDivCat);
+	console.log(anchoDivCat-12);
+	console.log("Ancho divs "+anchoDivs);
 	$("#divContenedorCatalogo").css("height",(altoDivCat-4)+"px");
 	$("#divContenedorCatalogo").css("width",anchoDivCat+"px");
 	//se redimensionan los divs interiores

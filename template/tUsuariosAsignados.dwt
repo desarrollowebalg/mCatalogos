@@ -41,10 +41,10 @@ function(){
   </select>
  </td>
       <td> 
-  				<input id="xx" type="button" class="quitar der" value="&nbsp;>&nbsp;">
-                <input id="xx" type="button" class="quitartodos der" value=">>">
-                <input id="xx" type="button" class="pasartodos izq" value="<<">
-                <input id="xx" type="button" class="pasar izq" value="&nbsp;<&nbsp;" >    
+  				<input id="xx" type="button" class="quitar der" value="&nbsp;>&nbsp;"  onClick="construyeArregloNoti($('#destino').val(),1);">
+                <input id="xx" type="button" class="quitartodos der" value=">>"        onClick="construyeArregloNoti('destino',2);">
+                <input id="xx" type="button" class="pasartodos izq" value="<<"         onClick="construyeArregloNoti('origen',2);">
+                <input id="xx" type="button" class="pasar izq" 	value="&nbsp;<&nbsp;"  onClick="construyeArregloNoti($('#origen').val(),1);" >    
       </td> 
  	  <td>
         
@@ -53,7 +53,7 @@ function(){
    </select>
        </td>
  </tr>
- <tr> <td colspan="3" height="20"><input type="hidden" id="id_menu" value="{IDARCHIVO}" /></td></tr>
+ <tr> <td colspan="3" height="20"><input type="hidden" id="id_menu" value="{IDARCHIVO}" /><input type="text" id="usuDeasig" /></td></tr>
 </table>
 
 <div id="dialog_prog" align="center">
