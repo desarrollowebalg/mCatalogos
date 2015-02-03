@@ -41,8 +41,8 @@ if($_SERVER["HTTP_REFERER"]==""){
 	}
 	
 	switch($_POST["action"]){
-		case "pintaContenido":
-		 echo $objT->PintaContenido($_POST['cliente'],$_POST['catalogo'],$_POST['tipo'],$_POST['rutaRaiz']);
+		 case "pintaContenido":
+		 echo $objT->PintaContenido($_POST['cliente'],$_POST['catalogo'],$_POST['tipo'],$_POST['rutaRaiz'],$_POST['idUsuario'],$_POST['formato']);
 		break;
 	}
 }

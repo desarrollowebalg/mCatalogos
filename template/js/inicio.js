@@ -27,6 +27,7 @@ $(document).ready(function(){
 		modal: true,
 		buttons: {
 			Cancelar: function() {
+				arregloUsuarios=[];
 				$("#dialogoUsuariosAsignados").dialog( "close" );
 			},
 			Aceptar:function(){
@@ -40,24 +41,31 @@ $(document).ready(function(){
    	});
 
    	$("#btnSubirArchivo").click(function(){
-   		alert("Subir archivo");
+		subirArchivo();
+//   		alert("Subir archivo");
    	});
 
    	$("#btnAsignarUsuarios").click(function(){
    		usuariosAsignados();
    	})
 	
+	$("#btnNotiUsuarios").click(function(){
+   		usuariosNotificar();
+   	})
+	
 	$("#dialogoSubirArchivo").dialog({
 		autoOpen: false,
-		height: 500,
-		width: 400,
+		height: 400,
+		width: 450,
 		modal: true,
 		buttons: {
 			Cancelar: function() {
+				var carpeta    = $("#rutaRaiz").val();
+			    var idCatalogo = $("#idCatalogo").val();
+			    var idTipo	   = $("#idTipo").val();
+ 			    var idCliente  = $("#idCliente").val();
+				pintaContenido(idCliente,idCatalogo,idTipo,carpeta);
 				$("#dialogoSubirArchivo").dialog( "close" );
-			},
-			Aceptar:function(){
-				//recorre_select();
 			}
 		}
    	});
@@ -173,6 +181,9 @@ function dibujArbol(){
 }
 
 function pintaContenido(cliente,catalogo,tipo,rutaRaiz){
-      	parametros="action=pintaContenido&cliente="+cliente+"&catalogo="+catalogo+"&tipo="+tipo+"&rutaRaiz="+rutaRaiz;
+	   $("#divCatalogoDetalle").html("");
+	   $("#btnAsignarUsuarios").hide();
+	    idUsuarioCatalogo=$("#idUsuarioCatalogo").val();
+      	parametros="action=pintaContenido&cliente="+cliente+"&catalogo="+catalogo+"&tipo="+tipo+"&rutaRaiz="+rutaRaiz+"&idUsuario="+idUsuarioCatalogo;
 		ajaxCatalogos("pintaContenido","controlador",parametros,"divCatalogo","divCatalogo","POST");
 }

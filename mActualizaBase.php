@@ -8,19 +8,19 @@
 	
 	$pedazos = explode("|",$_GET['datos']);
 	
-    $sqlZ = "DELETE FROM CAT2_ARCHIVO_USUARIO WHERE ID_ARCHIVO = ".$pedazos[1];
+    $sqlZ = "DELETE FROM CAT2_ARCHIVO_USUARIO WHERE ID_ARCHIVO = ".$pedazos[1].' AND ID_CLIENTE ='.$userAdmin->user_info['ID_CLIENTE'];
 	$queri = $db->sqlQuery($sqlZ);
 
 	if($queri){
 	   $resto = explode(",",$pedazos[0]);
-	   $sql_insert = "INSERT INTO CAT2_ARCHIVO_USUARIO (ID_USUARIO_ASIGNADO,ID_ARCHIVO) VALUES";
+	   $sql_insert = "INSERT INTO CAT2_ARCHIVO_USUARIO (ID_USUARIO_ASIGNADO,ID_ARCHIVO,NOTIFICAR,ID_CLIENTE) VALUES";
 	   $sql_cuerpo ="";
 	   
 	   for($a=0;$a<count($resto);$a++){
 	   	 if($sql_cuerpo == ""){
-	   	 	$sql_cuerpo = "(".$resto[$a].",".$pedazos[1].")";
+	$sql_cuerpo = "(".$resto[$a].",".$pedazos[1].",'1','".$userAdmin->user_info['ID_CLIENTE']."')";
 	   	 }else{
-	   	 	$sql_cuerpo = $sql_cuerpo.",(".$resto[$a].",".$pedazos[1].")";
+	   	 	$sql_cuerpo = $sql_cuerpo.",(".$resto[$a].",".$pedazos[1].",'1','".$userAdmin->user_info['ID_CLIENTE']."')";
 	   	 }
 	   }
 	    

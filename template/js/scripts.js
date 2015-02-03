@@ -1,3 +1,4 @@
+var arregloUsuarios	= Array();
 
 function nuevoAjax(){
 	var xmlhttp=false;
@@ -82,7 +83,7 @@ function formularioCatNuevo(){
 function verDetalles(titulo,resumen,ruta,imagen,tipo,idArchivo){
 	//se limpia el detalle anterior
 	$("#divCatalogoDetalle").html("");
-	$("#btnAsignarUsuarios").hide();
+	
 	// $("#divCatalogo").html(cliente+' '+catalogo+' '+tipo);
 	 $('#divCatalogoDetalle').html('Extrayendo datos espere...');
      var origen = imagen;
@@ -101,6 +102,7 @@ function verDetalles(titulo,resumen,ruta,imagen,tipo,idArchivo){
 	//'<tr> <td colspan="2" align="center"> <input type="button" value="Usuarios Asignados" onclick="usuariosAsignados('+idArchivo+');" /></td></tr>'+
 	  $('#divCatalogoDetalle').html(tabla);
 	 $("#btnAsignarUsuarios").show();//se muestra el boton para la asignacion de usuarios
+	 $("#btnNotiUsuarios").show();//se muestra el boton para la asignacion de usuarios
 }
 
 /*******************************************************************************/
@@ -118,6 +120,21 @@ function usuariosAsignados(){
 		  }
       });	
   $("#dialogoUsuariosAsignados").dialog( "open" );	
+}
+
+/*******************************************************************************/
+
+function usuariosNotificar(){
+	
+  $.ajax({
+            url: "index.php?m=mCatalogos&c=mUsuariosNotificar",
+		    type: "POST",
+            success: function(data) {
+            console.log(data);
+			//$('#dialogoUsuariosAsignados').html(data);
+		  }
+      });	
+//  $("#dialogoUsuariosAsignados").dialog( "open" );	
 }
 
 /*******************************************************************************/
@@ -174,6 +191,93 @@ function recorre_select(){
 
 function subirArchivo(){
  $("#dialogoSubirArchivo").dialog( "open" );	
- var carpeta = $("#rutaRaiz").val();
- document.getElementById('target').src = 'http://movi.2gps.net/public/libs/phpProcesos/mSubirArchivo.php?carpeta=/cat/'+carpeta;
+  var carpeta    = $("#rutaRaiz").val();
+  var idCatalogo = $("#idCatalogo").val();
+  var idTipo	 = $("#idTipo").val();
+  var idUsuario	 = $("#idUsuarioCatalogo").val();
+  var formatos   = $("#formatos").val();
+  
+ document.getElementById('target').src = 'http://www.movi.2gps.net_tareas/public/libs/phpProcesos/mSubirArchivo.php?carpeta='+carpeta+'&idCatalogo='+idCatalogo+'&idTipo='+idTipo+'&idUsuario='+idUsuario+'&formatos='+formatos;
+// document.getElementById('target').src = 'http://movi.2gps.net/public/libs/phpProcesos/mSubirArchivo.php?carpeta='+carpeta+'&idCatalogo='+idCatalogo+'&idTipo='+idTipo+'&idUsuario='+idUsuario;
+}
+
+
+/*
+function usuarioDeasignado(valor){
+console.log('valor que llego : '+valor);
+
+	var contador = 1;
+ if(valor!==null){ 
+  if(arregloUsuarios.length ===0){
+   	arregloUsuarios.push(valor);	  
+  }else{
+	  for(i=0;i<arregloUsuarios.length;i++){
+		  if(arregloUsuarios[i]!==valor && parseInt(contador) === parseInt(arregloUsuarios.length)){
+				 console.log((arregloUsuarios[i])+'!=='+valor+'&&'+contador+' === '+arregloUsuarios.length); 
+				 arregloUsuarios.push(valor);	
+		  }else{
+             contador++;
+		  }
+	  }
+  }
+
+   
+   for(j=0;j<arregloUsuarios.length;j++){
+	  console.log(arregloUsuarios[j]);	 
+   }
+ 
+ }
+}
+
+function limpiArreglo(valor){
+	  for(k=0;k<arregloUsuarios.length;k++){
+		   if(parseInt(arregloUsuarios[k])===parseInt(valor)){
+			    console.log('a quitar elemento:'+valor);
+				arregloUsuarios.splice(k);
+		   }
+	   }
+	   console.log('------------');
+	    for(j=0;j<arregloUsuarios.length;j++){
+	      console.log(arregloUsuarios[j]);	 
+        }
+}
+*/
+
+function construyeArregloNoti(valor,tipo){
+    var todos = '';
+	if(tipo =='1'){
+		todos = valor;
+	}else{
+		 $("#"+valor+" option").each(function(){
+			if(todos == ''){
+				todos = $(this).attr('value');
+			}else{
+				todos = todos+','+$(this).attr('value');
+			}
+		   
+		  });
+	}
+ llenaVacia(tipo,todos)
+ //console.log('tipo:'+tipo+'--'+todos); 	
+}
+
+function llenaVacia(tipo,cadena){
+  if(arregloUsuarios.length ===0 ){
+    if(tipo == '1'){
+	        arregloUsuarios.push(cadena);	  	
+	}else{
+	   var partes = cadena.split(',');
+	    for(c=0;c<partes.length;c++){
+		  	 arregloUsuarios.push(partes[c]);	  		
+		}
+	}
+  }else{
+	if(tipo == '1'){
+	        arregloUsuarios.push(cadena);	  	
+	}
+  }
+  
+        for(j=0;j<arregloUsuarios.length;j++){
+	      console.log(arregloUsuarios[j]);	 
+        }
 }
