@@ -261,7 +261,7 @@ function construyeArregloNoti(valor,tipo){
  //console.log('tipo:'+tipo+'--'+todos); 	
 }
 
-<<<<<<< HEAD
+
 function eliminarArchivosCatalogo(){
 	var elementos="";
 	for (var i=0;i<document.frmArchivoCat.elements.length;i++){//se recorre el formulario para saber los elementos seleccionados
@@ -287,7 +287,9 @@ function eliminarArchivosCatalogo(){
 		parametros="action=borrarArchivos&archvos="+elementos
 		ajaxCatalogos("borrarArchivos","controlador",parametros,"mensajesCatalogos","mensajesCatalogos","POST");
 		$("#mensajesCatalogos").dialog("open");
-=======
+	}
+}
+
 function llenaVacia(tipo,cadena){
   if(arregloUsuarios.length ===0 ){
     if(tipo == '1'){
@@ -297,7 +299,7 @@ function llenaVacia(tipo,cadena){
 	    for(c=0;c<partes.length;c++){
 		  	 arregloUsuarios.push(partes[c]);	  		
 		}
->>>>>>> 84ebc3492c2f8ccdd15686df04f71f265e5f03ae
+
 	}
   }else{
 	if(tipo == '1'){

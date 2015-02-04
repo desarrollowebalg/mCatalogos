@@ -69,7 +69,7 @@ $(document).ready(function(){
 			}
 		}
    	});
-<<<<<<< HEAD
+
 
    	$("#confirmacionEliminacion").dialog({
    		autoOpen:false,
@@ -101,8 +101,6 @@ $(document).ready(function(){
    			}	
    		}
    	});
-=======
->>>>>>> 84ebc3492c2f8ccdd15686df04f71f265e5f03ae
 	
 	
 	
