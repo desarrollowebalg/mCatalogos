@@ -261,6 +261,36 @@ function construyeArregloNoti(valor,tipo){
  //console.log('tipo:'+tipo+'--'+todos); 	
 }
 
+/*Funciones para la eliminacion*/
+function cancelarBorrado(){
+	$("#tbl_Archivos tr td").each(function (index) {//se recorren los tds
+		$("#"+this.id).hide();//id del elemento que se marcara)
+    });
+    $("#tbl_Archivos tr").each(function (index) {//se recorren los tds
+    	$("#"+this.id).removeClass("ui-state-highlight").addClass("estiloArchivosTabla");
+    });
+	for (var i=0;i<document.frmArchivoCat.elements.length;i++){
+	 	if (document.frmArchivoCat.elements[i].type=="checkbox"){
+			document.frmArchivoCat.elements[i].checked=0;
+	 	}
+	}
+    $("#filaBtnCancelar").hide();//se muestra el boton de cancelar la accion
+    $("#btnEliminarArchivos").html("<span class='ui-icon ui-icon-trash ' style='float:right;'></span>&nbsp;Borrar Archivo(s)");
+    contadorElementosBorrar=0;
+    funcionEliminar=false;
+}
+
+function marcarArchivo(idFila){
+	//$("#"+idFila).css("background","#F78181");
+	if($("#"+idFila).hasClass("estiloArchivosTabla")){
+		contadorElementosBorrar=contadorElementosBorrar+1;
+		$("#"+idFila).removeClass("estiloArchivosTabla").addClass("ui-state-highlight");
+		$("#btnEliminarArchivos").html("<span class='ui-icon ui-icon-trash' style='float:right;'></span>&nbsp;Borrar "+contadorElementosBorrar+" archivo(s)");//cambiar el texto del boton
+
+	}else{
+		$("#"+idFila).removeClass("ui-state-highlight").addClass("estiloArchivosTabla");
+	}
+}
 
 function eliminarArchivosCatalogo(){
 	var elementos="";

@@ -1,5 +1,6 @@
 //declaraciones iniciales
-
+contadorElementosBorrar=0;
+funcionEliminar=false;
 $(document).ready(function(){
    	redimensionarCatalogos();
 	existeCatalogos();
@@ -48,6 +49,19 @@ $(document).ready(function(){
    	$("#btnAsignarUsuarios").click(function(){
    		usuariosAsignados();
    	})
+
+   	$("#btnEliminarArchivos").click(function(){
+   		if(funcionEliminar==false){
+	   		$("#tbl_Archivos tr td").each(function (index) {//se habilitan los elementos
+	   			$("#"+this.id).show();
+		    });
+		    $("#filaBtnCancelar").show();//se muestra el boton de cancelar la accion
+		    funcionEliminar=true;
+   		}else{
+   			$("#confirmacionEliminacion").dialog("open");
+   		}
+   		
+   	});
 	
 	$("#btnNotiUsuarios").click(function(){
    		usuariosNotificar();
@@ -187,9 +201,6 @@ function redimensionarCatalogos(){
 	altoDivCat=$("#adm_content").height();
 	anchoDivCat=parseFloat($("#adm_content").width());
 	anchoDivs=(anchoDivCat-14) / 3;
-	console.log(altoDivCat);
-	console.log(anchoDivCat-12);
-	console.log("Ancho divs "+anchoDivs);
 	$("#divContenedorCatalogo").css("height",(altoDivCat-4)+"px");
 	$("#divContenedorCatalogo").css("width",anchoDivCat+"px");
 	//se redimensionan los divs interiores
