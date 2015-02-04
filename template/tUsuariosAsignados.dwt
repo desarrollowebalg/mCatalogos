@@ -45,6 +45,12 @@ function(){
                 <input id="xx" type="button" class="quitartodos der" value=">>"        onClick="construyeArregloNoti('destino',2);">
                 <input id="xx" type="button" class="pasartodos izq" value="<<"         onClick="construyeArregloNoti('origen',2);">
                 <input id="xx" type="button" class="pasar izq" 	value="&nbsp;<&nbsp;"  onClick="construyeArregloNoti($('#origen').val(),1);" >    
+
+<!--  				<input id="xx" type="button" class="quitar der" value="&nbsp;>&nbsp;"  onClick="construyeArregloNoti($('#destino').val(),1,'v');">
+                <input id="xx" type="button" class="quitartodos der" value=">>"        onClick="construyeArregloNoti('destino',2,'c');">
+                <input id="xx" type="button" class="pasartodos izq" value="<<"         onClick="construyeArregloNoti('origen',2,'c');">
+                <input id="xx" type="button" class="pasar izq" 	value="&nbsp;<&nbsp;"  onClick="construyeArregloNoti($('#origen').val(),1,'v');" >                  
+-->                
       </td> 
  	  <td>
         
