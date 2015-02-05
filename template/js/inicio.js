@@ -183,15 +183,14 @@ function controladorAcciones(accion,data,divResultado){
 		 $("#"+divResultado).show().html(data);
 		break;
 		case "borrarArchivos":
-			$("#"+divResultado).show().html(data);
+			//$("#"+divResultado).show().html(data);
 			valores=data.split("|||");
-			if(valores==1){
-				
+			if(valores[0]==1){
 				$("#"+divResultado).html("Cambios realizados en el Catalogo")//guardo
 			}else{
-				//error al borrar
-				$("#"+divResultado).html("Ha ocurrido un error al eliminar el archivo.");
+				$("#"+divResultado).html("Ha ocurrido un error al eliminar el archivo.");//error al borrar
 			}
+			//los usuarios a notificar se encuentran en el array valores en la posicion 1 valores[1]
 		break;
 		
 	}
