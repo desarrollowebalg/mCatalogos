@@ -438,6 +438,10 @@ function marcarArchivo(idFila){
 
 	}else{
 		$("#"+idFila).removeClass("ui-state-highlight").addClass("estiloArchivosTabla");
+		contadorElementosBorrar-=1;
+		if(contadorElementosBorrar==0){
+			cancelarBorrado();
+		}
 	}
 }
 

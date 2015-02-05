@@ -32,36 +32,44 @@ class catalogos{
    		return $objBd;
    	}
 
-   	function borrarArchivos($archvos){
+   	function borrarArchivos($archivos){
    		$objDb=$this->iniciarConexionDb();
    		//primero se extraen los usuarios relacionados con el archivo
    		$usuariosPrevios="";
-   		$archivos=explode(",",$archivos);
+   		$archivos=explode(",,,",$archivos);
    		$mensaje="";
    		for($i=0;$i<count($archivos);$i++){
-			$sql="SELECT ID_USUARIO_ASIGNADO FROM CAT2_ARCHIVO_USUARIO WHERE ID_ARCHIVO='".$archivos[$i]."'";
+			$sql="SELECT CAT2_ARCHIVO.ID_ARCHIVO AS ID_ARCHIVO,PATH2,ID_USUARIO_ASIGNADO FROM CAT2_ARCHIVO INNER JOIN CAT2_ARCHIVO_USUARIO ON CAT2_ARCHIVO.ID_ARCHIVO=CAT2_ARCHIVO_USUARIO.ID_ARCHIVO WHERE CAT2_ARCHIVO.ID_ARCHIVO='".$archivos[$i]."'";
    			$res=$objDb->sqlQuery($sql);
 
    			while($row=$objDb->sqlFetchArray($res)){
+   				$path=$row["PATH2"];
 				if($usuariosPrevios==""){
 	   				$usuariosPrevios=$row["ID_USUARIO_ASIGNADO"];
 	   			}else{
 	   				$usuariosPrevios=$usuariosPrevios.",".$row["ID_USUARIO_ASIGNADO"];
 	   			}
    			}
-   		
-			//se procede a eliminar el arciv
-   			$sql="DELETE FROM CAT2_ARCHIVO_USUARIO WHERE ID_ARCHIVO='".$archivos[$i]."'";
-   			$res=$objDb->sqlQuery($sql);
-   			if($res){
-   				$sql1="DELEte FROM CAT2_ARCHIVO WHERE ID_ARCHIVO='".$archivos[$i]."'";
-   				$res1=$objDb->sqlQuery($sql1);
-   				if($res1){
-   					$mensaje=1;
-   				}else{
-   					$mensaje=0;
-   				}
-   			}
+
+			if(unlink($path)){//se procede a eliminar el archivo
+				//se procede a eliminar el arciv
+	   			$sql="DELETE FROM CAT2_ARCHIVO_USUARIO WHERE ID_ARCHIVO='".$archivos[$i]."'";
+	   			$res=$objDb->sqlQuery($sql);
+	   			if($res){
+	   				$sql1="DELETE FROM CAT2_ARCHIVO WHERE ID_ARCHIVO='".$archivos[$i]."'";
+	   				$res1=$objDb->sqlQuery($sql1);
+	   				if($res1){
+	   					$mensaje=1;//echo "<br>A borrar";		
+	   				}else{
+	   					$mensaje=0;
+	   				}
+	   			}
+		   	}else{
+		   		$mensaje=0;//echo "<br>Archivo no encontrado";
+		   	}
+
+
+
    		}
    		$mensaje=$mensaje."|||".$usuariosPrevios;
    		return $mensaje;
@@ -92,12 +100,8 @@ class catalogos{
 	*/
 	public function creaNuevoCatalogo($idCliente,$nombre){
 		$objDb=$this->iniciarConexionDb();
-		$sqlE="INSERT INTO CAT2_CATALOGO (ID_CLIENTE,NOMBRE,FECHA_CREACION,RUTA_RAIZ) VALUES('".$idCliente."','".
-																						 $nombre."','".
-																						 date('Y-m-d H:i:s')."','cat/".
-																						 $idCliente.'_'.$nombre."/')";
+		$sqlE="INSERT INTO CAT2_CATALOGO (ID_CLIENTE,NOMBRE,FECHA_CREACION,RUTA_RAIZ) VALUES('".$idCliente."','".$nombre."','".date('Y-m-d H:i:s')."','cat/".$idCliente.'_'.$nombre."/')";
 		$resE=$objDb->sqlQuery($sqlE);
-		
 		if($resE){
 		  $this->crearCarpetasCatalogo($idCliente,$nombre);
 		  $res_x = 1;	
@@ -105,7 +109,7 @@ class catalogos{
 		}else{
 		  $res_x = 0;	
 		}
-      echo $res_x ;
+      	echo $res_x ;
 	}
   /**
 	*@method 		crearCarpetasCatalogo
@@ -114,11 +118,11 @@ class catalogos{
 	*
 	*/
  	public function crearCarpetasCatalogo($idCliente,$nombre){
-	 mkdir('cat/'.$idCliente.'_'.$nombre, 0700);
-		 mkdir('cat/'.$idCliente.'_'.$nombre.'/1', 0700);
-		 mkdir('cat/'.$idCliente.'_'.$nombre.'/2', 0700);
-		 mkdir('cat/'.$idCliente.'_'.$nombre.'/3', 0700);
-		 mkdir('cat/'.$idCliente.'_'.$nombre.'/4', 0700);	 			 
+	 	mkdir('cat/'.$idCliente.'_'.$nombre, 0777);
+		mkdir('cat/'.$idCliente.'_'.$nombre.'/1', 0777);
+		mkdir('cat/'.$idCliente.'_'.$nombre.'/2', 0777);
+		mkdir('cat/'.$idCliente.'_'.$nombre.'/3', 0777);
+		mkdir('cat/'.$idCliente.'_'.$nombre.'/4', 0777);	 			 
      }
    /**
 	*@method 		crearCarpetasCatalogo
