@@ -201,15 +201,15 @@ function redimensionarCatalogos(){
 	anchoDivCat=parseFloat($("#adm_content").width());
 	anchoDivs=(anchoDivCat-14) / 3;
 	$("#divContenedorCatalogo").css("height",(altoDivCat-4)+"px");
-	$("#divContenedorCatalogo").css("width",anchoDivCat+"px");
 	//se redimensionan los divs interiores
-	$("#divCArbol").css("width",(anchoDivs-150)+"px");
-	$("#divCCatalogo").css("width",(anchoDivs+72)+"px");
-	$("#divCCatalogoDetalle").css("width",(anchoDivs+72)+"px");
+	
+	$("#divCArbol").css("height",(altoDivCat-10)+"px");
+	$("#divCCatalogo").css("height",(altoDivCat-10)+"px");
+	$("#divCCatalogoDetalle").css("height",(altoDivCat-10)+"px");
 
-	$("#divArbol").css("height",(altoDivCat-80)+"px");
-	$("#divCatalogo").css("height",(altoDivCat-80)+"px");
-	$("#divCatalogoDetalle").css("height",(altoDivCat-80)+"px");
+	$("#divArbol").css("height",(altoDivCat-76)+"px");
+	$("#divCatalogo").css("height",(altoDivCat-76)+"px");
+	$("#divCatalogoDetalle").css("height",(altoDivCat-76)+"px");
 }
 
 function existeCatalogos(){

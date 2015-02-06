@@ -6,7 +6,7 @@
 
 <div id="divContenedorCatalogo">
     <div id="divCArbol">
-		<div class="ui-widget-header" style="padding:5px;width:94%;">Cat&aacute;logos</div>
+		<div class="ui-widget-header" style="padding:5px;width:94.5%;">Cat&aacute;logos</div>
 		<div id="divArbol" style="border:0px solid green;width:99%;"></div>
     	<div id="btnArbol" style="border-top:1px solid #a6c9e2;float:left;width:99.9%;text-align:right;margin:0px;">
     		<button id="btnNuevoCatalogo" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="height:25px;margin-top:5px;margin:5px;"><span class="ui-icon ui-icon-circle-plus " style="float:right;"></span>&nbsp;Nuevo Cat&aacute;logo</button>
