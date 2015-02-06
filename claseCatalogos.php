@@ -39,8 +39,11 @@ class catalogos{
    		$archivos=explode(",,,",$archivos);
    		$mensaje="";
    		for($i=0;$i<count($archivos);$i++){
-			$sql="SELECT CAT2_ARCHIVO.ID_ARCHIVO AS ID_ARCHIVO,PATH2,ID_USUARIO_ASIGNADO FROM CAT2_ARCHIVO INNER JOIN CAT2_ARCHIVO_USUARIO ON CAT2_ARCHIVO.ID_ARCHIVO=CAT2_ARCHIVO_USUARIO.ID_ARCHIVO WHERE CAT2_ARCHIVO.ID_ARCHIVO='".$archivos[$i]."'";
-   			$res=$objDb->sqlQuery($sql);
+			$sql="SELECT CAT2_ARCHIVO.ID_ARCHIVO AS ID_ARCHIVO,PATH2,ID_USUARIO_ASIGNADO 
+		              FROM CAT2_ARCHIVO INNER JOIN CAT2_ARCHIVO_USUARIO ON CAT2_ARCHIVO.ID_ARCHIVO=CAT2_ARCHIVO_USUARIO.ID_ARCHIVO 
+					  WHERE CAT2_ARCHIVO.ID_ARCHIVO='".$archivos[$i]."'";
+   		
+			$res=$objDb->sqlQuery($sql);
 
    			while($row=$objDb->sqlFetchArray($res)){
    				$path=$row["PATH2"];
@@ -69,11 +72,10 @@ class catalogos{
 		   	}
 
 
-
    		}
    		$mensaje=$mensaje."|||".$usuariosPrevios;
    		return $mensaje;
-   	}
+ }
 	/**
 	*@method 		avisoCatalogosExistentes
 	*@description 	Funcion para pintar aviso si no hay catalogos para el cliente

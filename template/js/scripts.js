@@ -22,6 +22,9 @@ function nuevoAjax(){
 //funciones para el modulo
 function enviarNotificacion(usuarios){
 	
+	    
+
+
 		ttl="Catálogo(s) Actualizado(s)";
 		msj="Informacion actualizada favor de revisar.";
 	
@@ -40,6 +43,12 @@ function enviarNotificacion(usuarios){
 		},
 		success: function(data) {
 			//$("#"+divResultado).html(data);
+			 if(data=='ok'){
+				  
+				 avisoNotificar(2);
+ 				   $("#letrero_x").html('Notificacion(es) enviada(s)');
+         		   $("#dialog_okey").dialog("open");
+			 }
 			console.log("Resultado: "+data);
 		}
 	});
@@ -84,13 +93,13 @@ function verDetalles(titulo,resumen,ruta,imagen,tipo,idArchivo){
 		origen = ruta;
 	 }
 	 //'<tr> <td colspan="2" align="center" style=" background-color:#0072A8;color:#FFF;"> Detalles</td></tr>'+
-	  var tabla = '<table border="1" width="100%" style="border-collapse:collapse;" bordercolor="#EAEAEA">'+
+	  var tabla = '<table border="1" width="100%"  height="100%" style="border-collapse:collapse;" bordercolor="#EAEAEA">'+
 					 '<tr> <td colspan="2" align="center"><img src="'+origen+'" width="200 height="200" /></td></tr>'+
-					 '<tr> <td colspan="2" align="center">&nbsp;</td></tr>'+
-					 '<tr> <td style=" background-color:#0072A8;color:#FFF;"  width="80"> Nombre</td><td>'+titulo+'</td></tr>'+
-					 '<tr> <td style=" background-color:#0072A8;color:#FFF;"  width="80"> Resumen</td><td>'+resumen+'</td></tr>'+
-					 '<tr> <td colspan="2" align="center">&nbsp;</td></tr>'+
-				 '</table><input type="text" id="detalleArchivo" value="'+idArchivo+'" />';
+					 '<tr> <td colspan="2" style=" background-color:#0072A8;color:#FFF;" align="center" height="5">&nbsp;</td></tr>'+
+					 '<tr> <td style=" background-color:#0072A8;color:#FFF;"  width="80" height="30"> Nombre</td><td>'+titulo+'</td></tr>'+
+					 '<tr> <td style=" background-color:#0072A8;color:#FFF;"  width="80" height="50%" valign="top"> Resumen</td><td valign="top">'+resumen+'</td></tr>'+
+					
+				 '</table><input type="hidden" id="detalleArchivo" value="'+idArchivo+'" />';
 	//'<tr> <td colspan="2" align="center"> <input type="button" value="Usuarios Asignados" onclick="usuariosAsignados('+idArchivo+');" /></td></tr>'+
 	  $('#divCatalogoDetalle').html(tabla);
 	 $("#btnAsignarUsuarios").show();//se muestra el boton para la asignacion de usuarios
@@ -128,17 +137,6 @@ function usuariosNotificar(){
    }	
 
 enviarNotificacion(usuariosEnviar);
-  /*$.ajax({
-            url: "index.php?m=mCatalogos&c=mUsuariosNotificar",
-		    type: "POST",
-            success: function(data) {
-            console.log(data);
-			//$('#dialogoUsuariosAsignados').html(data);
-		  }
-      });	
-//  $("#dialogoUsuariosAsignados").dialog( "open" );	*/
-
-
 
 }
 
@@ -180,6 +178,7 @@ function recorre_select(){
 					   $("#dialog_okey").dialog("open");
 					   llenaArregloFinal();
 					   arregloUsuarios= [];
+					   avisoNotificar(1);
 					   console.log('el arreglo arregloUsuarios tiene'+arregloUsuarios.length+' datos');
 					 //alert('cambios realizados');
 				  }else{
@@ -204,8 +203,8 @@ function subirArchivo(){
   var idUsuario	 = $("#idUsuarioCatalogo").val();
   var formatos   = $("#formatos").val();
   
- //document.getElementById('target').src = 'http://www.movi.2gps.net_tareas/public/libs/phpProcesos/mSubirArchivo.php?carpeta='+carpeta+'&idCatalogo='+idCatalogo+'&idTipo='+idTipo+'&idUsuario='+idUsuario+'&formatos='+formatos;
-   document.getElementById('target').src = 'http://movi.2gps.net/public/libs/phpProcesos/mSubirArchivo.php?carpeta='+carpeta+'&idCatalogo='+idCatalogo+'&idTipo='+idTipo+'&idUsuario='+idUsuario+'&formatos='+formatos;
+ document.getElementById('target').src =  $("#nombreServidor").val()+'/public/libs/phpProcesos/mSubirArchivo.php?carpeta='+carpeta+'&idCatalogo='+idCatalogo+'&idTipo='+idTipo+'&idUsuario='+idUsuario+'&formatos='+formatos;
+ //  document.getElementById('target').src = 'http://movi.2gps.net/public/libs/phpProcesos/mSubirArchivo.php?carpeta='+carpeta+'&idCatalogo='+idCatalogo+'&idTipo='+idTipo+'&idUsuario='+idUsuario+'&formatos='+formatos;
 }
 
 
@@ -514,4 +513,15 @@ function  llenaArregloFinal(){
 			console.log('arregloFinal['+r+']='+arregloFinal[r]);
 		    
 		 }
+}
+
+function avisoNotificar(valor){
+  	if(valor == '1'){ 
+	    $("#avisoNotificaciones").css("background","#FFCC33");	
+	    $("#valorNoti").val("Si");	
+	}else{
+	   $("#avisoNotificaciones").css("background","#F3F3F3");	
+	    $("#valorNoti").val("No");	
+	}
+	
 }

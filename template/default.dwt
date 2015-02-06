@@ -23,11 +23,17 @@
     <div id="divCCatalogoDetalle">
     	<div class="ui-widget-header" style="padding:5px;width:97%;text-align:center;">Detalles</div>
     	<div id="divCatalogoDetalle" style="border:0px solid #FF0000;width:99.4%;"></div>
-		<div id="btnArbol" style="border-top:1px solid #a6c9e2;float:left;width:99.9%;text-align:right;margin:0px;">
-       
-    		<button id="btnAsignarUsuarios" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="display:none;height:25px;margin-top:5px;margin:5px;"><span class="ui-icon ui-icon-circle-check " style="float:right;"></span>&nbsp;Asignar Usuarios</button>
-            <button id="btnNotiUsuarios" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="display:none;height:25px;margin-top:5px;margin:5px;"><span class="ui-icon ui-icon-circle-check " style="float:right;"></span>&nbsp;Notificar a Usuarios</button>
-    	</div>
+		<div id="btnArbol" style="border-top:1px solid #a6c9e2;float:left;width:99.9%;text-align:right;margin:0px;" align="left">
+       <table border="0" width="100%" height="100%" > 
+       <tr><td align="left"> 
+             <div id="avisoNotificaciones" style="width:100%; height:100%; background: #F3F3F3; color:#666;" > Notificaciones pendientes de envio: 
+                 <input type="text" size="3" align="middle" value="No" id="valorNoti" readonly style=" border-style:none; font-size:12px; background-color:transparent;" />
+             </div>
+           </td>
+          <td> 	<button id="btnAsignarUsuarios" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="display:none;height:25px;margin-top:5px;margin:5px;"><span class="ui-icon ui-icon-circle-check " style="float:right;"></span>&nbsp;Asignar Usuarios</button>            <button id="btnNotiUsuarios" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="display:none;height:25px;margin-top:5px;margin:5px;"><span class="ui-icon ui-icon-circle-check " style="float:right;"></span>&nbsp;Notificar a Usuarios</button></td>
+    	</tr>
+    </table>    
+        </div>
     </div>
 </div>
 
@@ -48,3 +54,4 @@
   <div id="confirmacionEliminacion" title="Confirmaci&oacute;n" style="display:none;"><p><span class="ui-icon ui-icon-alert" style="float:left;"></span>&nbsp;¿Desea eliminar los archivos seleccionados?</p></div>
   <div id="mensajesCatalogos" style="display:none;"></div>
 
+<input type="text" id="nombreServidor" value="{NOMBRE_SERVIDOR}"/>

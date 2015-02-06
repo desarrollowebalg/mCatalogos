@@ -15,7 +15,12 @@
 	$idProfile   = $userAdmin->user_info['ID_PROFILE'];
 	$idCliente   = $userAdmin->user_info['ID_CLIENTE'];
 	$idUsuario	 = $userAdmin->user_info['ID_USUARIO'];
+	$nombreServidor	 = $userAdmin->user_info['RUTA_FOTOS_EVIDENCIAS'];
 	
+	$sql ='SELECT RUTA_FOTOS_EVIDENCIAS FROM ADM_CLIENTES WHERE ID_CLIENTE = '.$idCliente;
+	$result=$db->sqlQuery($sql);
+	$row=$db->sqlFetchArray($result);
+
 	/*echo "<pre>";
 	print_r($userAdmin);
 	echo "</pre>";*/
@@ -48,7 +53,8 @@
 		'PAGE_TITLE'	=> "Administraci&oacute;n de Catalogos",	
 		'PATH'			=> $dir_mod,
 		'IDCLIENTE'		=> $idCliente,
-		'IDUSUARIO'	    => $idUsuario
+		'IDUSUARIO'	    => $idUsuario,
+		'NOMBRE_SERVIDOR' => $row['RUTA_FOTOS_EVIDENCIAS']
 		
 	));
 	$tpl->pparse('default');
