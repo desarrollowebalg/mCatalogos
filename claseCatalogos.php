@@ -39,14 +39,19 @@ class catalogos{
    		$archivos=explode(",,,",$archivos);
    		$mensaje="";
    		for($i=0;$i<count($archivos);$i++){
+<<<<<<< HEAD
 			$sql="SELECT CAT2_ARCHIVO.ID_ARCHIVO AS ID_ARCHIVO,PATH2,ID_USUARIO_ASIGNADO 
 		              FROM CAT2_ARCHIVO INNER JOIN CAT2_ARCHIVO_USUARIO ON CAT2_ARCHIVO.ID_ARCHIVO=CAT2_ARCHIVO_USUARIO.ID_ARCHIVO 
 					  WHERE CAT2_ARCHIVO.ID_ARCHIVO='".$archivos[$i]."'";
    		
 			$res=$objDb->sqlQuery($sql);
+=======
+			$sql="SELECT CAT2_ARCHIVO.ID_ARCHIVO AS ID_ARCHIVO,PATH,ID_USUARIO_ASIGNADO FROM CAT2_ARCHIVO INNER JOIN CAT2_ARCHIVO_USUARIO ON CAT2_ARCHIVO.ID_ARCHIVO=CAT2_ARCHIVO_USUARIO.ID_ARCHIVO WHERE CAT2_ARCHIVO.ID_ARCHIVO='".$archivos[$i]."'";
+   			$res=$objDb->sqlQuery($sql);
+>>>>>>> 73a723aff767d72bf28152cc1732da36c7ef7912
 
    			while($row=$objDb->sqlFetchArray($res)){
-   				$path=$row["PATH2"];
+   				$path=$row["PATH"];
 				if($usuariosPrevios==""){
 	   				$usuariosPrevios=$row["ID_USUARIO_ASIGNADO"];
 	   			}else{
@@ -55,7 +60,24 @@ class catalogos{
    			}
 
 			if(unlink($path)){//se procede a eliminar el archivo
-				//se procede a eliminar el arciv
+				//se procede a eliminar el archivo de la base de datos
+
+				$sql1="DELETE FROM CAT2_ARCHIVO WHERE ID_ARCHIVO='".$archivos[$i]."'";
+				$res1=$objDb->sqlQuery($sql1);
+				if($res1){
+					$sql="DELETE FROM CAT2_ARCHIVO_USUARIO WHERE ID_ARCHIVO='".$archivos[$i]."'";	   				
+					$res=$objDb->sqlQuery($sql);
+					if($res){
+	   					$mensaje=1;//echo "<br>A borrar";		
+	   				}else{
+	   					$mensaje=0;
+	   				}
+	   			}else{
+	   				$mensaje=0;
+	   			}
+
+
+
 	   			$sql="DELETE FROM CAT2_ARCHIVO_USUARIO WHERE ID_ARCHIVO='".$archivos[$i]."'";
 	   			$res=$objDb->sqlQuery($sql);
 	   			if($res){

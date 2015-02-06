@@ -1,10 +1,9 @@
-#divContenedorCatalogo{position: absolute;border:1px solid #FF0000;}
+#divContenedorCatalogo{position: relative;border:0px solid #FF0000;width: 99.8%;}
 
-#divCArbol{border:1px solid #a6c9e2;height:99.7%;float:left;margin:2px 2px 2px 0px;}
+#divCArbol{border:1px solid #a6c9e2;float:left;margin:2px 2px 2px 0px;position: relative;width:20%;}
+#divCCatalogo{border:1px solid #a6c9e2;float:left;margin:2px;position: relative;width:39%;}
+#divCCatalogoDetalle{border:1px solid #a6c9e2;float:left;margin:2px;position: relative;width:39%;}
 
-#divCCatalogo{border:1px solid #a6c9e2;height:99.7%;float:left;margin:2px;}
-#divCCatalogoDetalle{border:1px solid #a6c9e2;height:99.7%;float:left;margin:2px;}
-
-#divArbol{border:1px solid blue;height:99.7%;float:left;margin:2px 2px 2px 0px;overflow: auto;}
-#divCatalogo{border:1px solid green;height:99.7%;float:left;margin:2px;overflow: auto;}
-#divCatalogoDetalle{border:1px solid green;height:99.7%;float:left;margin:2px; overflow: auto;}
+#divArbol{border:1px solid blue;float:left;margin:2px 2px 2px 0px;overflow: auto;}
+#divCatalogo{border:1px solid green;float:left;margin:2px;overflow: auto;}
+#divCatalogoDetalle{border:1px solid green;float:left;margin:2px; overflow: auto;}
