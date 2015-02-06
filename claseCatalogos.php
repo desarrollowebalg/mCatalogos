@@ -203,6 +203,7 @@ class catalogos{
 				   b.TITULO,
 				   b.RESUMEN,
 				   b.PATH,
+				   b.PATH2,
 				   c.RUTA,
 				   b.VISIBLE 
 		    FROM CAT2_CATALOGO a 
@@ -224,7 +225,7 @@ class catalogos{
 				$chk="chk_".$row["ID_ARCHIVO"];  $chk1="chk_".$row["ID_ARCHIVO"];  $idFila="id_".$row["ID_ARCHIVO"];
 		 	    $tabla .= '<tr id="'.$idFila.'" class="estiloArchivosTabla" align="center"><td id="'.$chk1.'" width="13" style="display:none;"><input type="checkbox" onclick="marcarArchivo(\''.$idFila.'\')" value="'.$row["ID_ARCHIVO"].'" name="chkEliminar" id="'.$chk.'" /></td><td width="50" ><img src="'.$row['RUTA'].'" width="50" height="50" /></td><td>'
 				  														   .$row['TITULO'].'</td><td width="80" onclick="verDetalles(\''
-																		   .$row['TITULO'].'\',\''.$row['RESUMEN'].'\',\''.$row['PATH'].'\',\''
+																		   .$row['TITULO'].'\',\''.$row['RESUMEN'].'\',\''.$row['PATH2'].'\',\''
 																		   .$row['RUTA'].'\',\''.$row['ID_TIPO'].'\',\''.$row['ID_ARCHIVO']
 																		   .'\');" style="cursor:pointer;"><img src="public/images/mostrar2.png" border="0"></td></tr>';
 			}

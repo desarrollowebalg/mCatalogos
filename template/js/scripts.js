@@ -1,4 +1,5 @@
 var arregloUsuarios	= Array();
+var arregloFinal    = Array();
 
 function nuevoAjax(){
 	var xmlhttp=false;
@@ -19,22 +20,13 @@ function nuevoAjax(){
 /*******************************************************************************/
 
 //funciones para el modulo
-function enviarNotificacion(accion){
-	var usuarios=usuariosTareasNotificaciones[0];
-	var tit=usuariosTareasNotificaciones[1];
-	console.log("Accion: "+accion);
-	console.log("Usuarios: "+usuarios);
-	console.log("Nombre Tarea: "+tit);
-	if(accion==1){
-		ttl="Nueva Tarea";
-		msj="La tarea "+tit+" ha sido asignada a usted.";
-	}else if(accion==2){
-		ttl="Tarea actualizada";
-		msj="La tarea "+tit+" ha sido actualizada favor de revisar.";
-	}
+function enviarNotificacion(usuarios){
+	
+		ttl="Catálogo(s) Actualizado(s)";
+		msj="Informacion actualizada favor de revisar.";
 	
 	sub="";
-	cmd="typ:1|opt:1|tab:4";
+	cmd="typ:1|opt:1|tab:6";
 	dev=usuarios;
 	parametros="ttl="+ttl+"&msj="+msj+"&sub="+sub+"&cmd="+cmd+"&dev="+dev;
 	console.log(parametros);
@@ -52,7 +44,7 @@ function enviarNotificacion(accion){
 		}
 	});
 	//se vacia el array generado
-	usuariosTareasNotificaciones.length=0;
+	//usuariosTareasNotificaciones.length=0;
 }
 /*******************************************************************************/
 function formularioCatNuevo(){
@@ -98,7 +90,7 @@ function verDetalles(titulo,resumen,ruta,imagen,tipo,idArchivo){
 					 '<tr> <td style=" background-color:#0072A8;color:#FFF;"  width="80"> Nombre</td><td>'+titulo+'</td></tr>'+
 					 '<tr> <td style=" background-color:#0072A8;color:#FFF;"  width="80"> Resumen</td><td>'+resumen+'</td></tr>'+
 					 '<tr> <td colspan="2" align="center">&nbsp;</td></tr>'+
-				 '</table><input type="hidden" id="detalleArchivo" value="'+idArchivo+'" />';
+				 '</table><input type="text" id="detalleArchivo" value="'+idArchivo+'" />';
 	//'<tr> <td colspan="2" align="center"> <input type="button" value="Usuarios Asignados" onclick="usuariosAsignados('+idArchivo+');" /></td></tr>'+
 	  $('#divCatalogoDetalle').html(tabla);
 	 $("#btnAsignarUsuarios").show();//se muestra el boton para la asignacion de usuarios
@@ -126,7 +118,17 @@ function usuariosAsignados(){
 
 function usuariosNotificar(){
 	
-  $.ajax({
+   var usuariosEnviar = '';
+   for(r=0;r<arregloFinal.length;r++){
+	 if(usuariosEnviar == ''){ 
+		 usuariosEnviar = arregloFinal[r];
+	 }else{
+		 usuariosEnviar = usuariosEnviar+','+arregloFinal[r];	 
+	 }
+   }	
+
+enviarNotificacion(usuariosEnviar);
+  /*$.ajax({
             url: "index.php?m=mCatalogos&c=mUsuariosNotificar",
 		    type: "POST",
             success: function(data) {
@@ -134,7 +136,10 @@ function usuariosNotificar(){
 			//$('#dialogoUsuariosAsignados').html(data);
 		  }
       });	
-//  $("#dialogoUsuariosAsignados").dialog( "open" );	
+//  $("#dialogoUsuariosAsignados").dialog( "open" );	*/
+
+
+
 }
 
 /*******************************************************************************/
@@ -171,13 +176,15 @@ function recorre_select(){
 				  if(result!=0){
 					   $("#dialog_prog").dialog("close");
 					   $("#letrero_x").html('Proceso realizado');
+					   $("#dialogoUsuariosAsignados").dialog( "close" );
 					   $("#dialog_okey").dialog("open");
-					   
-
+					   llenaArregloFinal();
+					   arregloUsuarios= [];
+					   console.log('el arreglo arregloUsuarios tiene'+arregloUsuarios.length+' datos');
 					 //alert('cambios realizados');
 				  }else{
 					      $("#dialog_prog").dialog("close");
-					     $("#letrero_x").html('Falla al realizar proceso');
+					      $("#letrero_x").html('Falla al realizar proceso');
 						  $("#dialog_okey").dialog("open");
 					// alert('falla al realizar cambios');  
 				  }
@@ -197,8 +204,8 @@ function subirArchivo(){
   var idUsuario	 = $("#idUsuarioCatalogo").val();
   var formatos   = $("#formatos").val();
   
- document.getElementById('target').src = 'http://www.movi.2gps.net_tareas/public/libs/phpProcesos/mSubirArchivo.php?carpeta='+carpeta+'&idCatalogo='+idCatalogo+'&idTipo='+idTipo+'&idUsuario='+idUsuario+'&formatos='+formatos;
-// document.getElementById('target').src = 'http://movi.2gps.net/public/libs/phpProcesos/mSubirArchivo.php?carpeta='+carpeta+'&idCatalogo='+idCatalogo+'&idTipo='+idTipo+'&idUsuario='+idUsuario;
+ //document.getElementById('target').src = 'http://www.movi.2gps.net_tareas/public/libs/phpProcesos/mSubirArchivo.php?carpeta='+carpeta+'&idCatalogo='+idCatalogo+'&idTipo='+idTipo+'&idUsuario='+idUsuario+'&formatos='+formatos;
+   document.getElementById('target').src = 'http://movi.2gps.net/public/libs/phpProcesos/mSubirArchivo.php?carpeta='+carpeta+'&idCatalogo='+idCatalogo+'&idTipo='+idTipo+'&idUsuario='+idUsuario+'&formatos='+formatos;
 }
 
 
@@ -243,12 +250,155 @@ function limpiArreglo(valor){
 }
 */
 
-function construyeArregloNoti(valor,tipo){
-    var todos = '';
-	if(tipo =='1'){
-		todos = valor;
-	}else{
-		 $("#"+valor+" option").each(function(){
+//******************************************************
+
+function construyeArregloNoti(valor,tipo,idArchivo){
+ var cadena = valor;
+  if(tipo=='2'){
+	  cadena = todoselegidos(valor);
+  }
+ llenaVacia(tipo,cadena,idArchivo);
+//console.log(valor+','+tipo+','+idArchivo);
+}
+
+
+
+//******************************************************
+/*
+function llenaVacia(tipo,cadena,formato){
+   var bandera = 0;
+  
+ if(tipo == '1'){
+		if(formato == 'c'){
+		 var cachitos = cadena.split(',');
+          for(c=0;c<cachitos.length;c++){
+			  arregloUsuarios.push(parseInt(cachitos[c]));	
+		  }
+		}else{
+			 
+  		       for(af=0;af<arregloUsuarios.length;af++){
+				  if( parseInt(arregloUsuarios[af]) == parseInt(cadena)) {
+					 arregloUsuarios.splice(af,1);  
+					 bandera = 1;
+					 break;
+				  }else{
+					 bandera = 0;  
+				  }
+			  }
+			  
+			  if(bandera===0){
+				   arregloUsuarios.push(parseInt(cadena));  
+			  }
+		}
+     }else{
+		if(formato == 'c'){
+    	   var cachitos = cadena.split(',');
+           for(c=0;c<cachitos.length;c++){
+			  for(af=0;af<arregloUsuarios.length;af++){
+				  if( parseInt(arregloUsuarios[af]) == parseInt(cachitos[c])) {
+					 arregloUsuarios.splice(af,1);  
+					 bandera = 1;
+					 break;
+				  }else{
+					 bandera = 0;  
+				  }
+			  }
+			  if(bandera===0){
+				   arregloUsuarios.push(parseInt(cachitos[c]));  
+			  }
+		   }
+		   
+		   
+		}else{
+			for(af=0;af<arregloUsuarios.length;af++){
+				  if(arregloUsuarios[af] === parseInt(cadena)) {
+					 arregloUsuarios.splice(af,1);
+					 bandera = 1;
+					 break;
+				  }else{
+					 bandera = 0;  
+				  }
+			}
+			
+			 if(bandera===0){
+				   arregloUsuarios.push(parseInt(cadena));  
+			  }
+		}
+	 }
+  
+  
+  console.log('*******************:'+arregloUsuarios.length);
+        for(j=0;j<arregloUsuarios.length;j++){
+	      console.log(arregloUsuarios[j]);	 
+        }
+		
+		
+}
+*/
+
+function llenaVacia(tipo,cadena,idArchivo){
+   var bandera = 0;
+  
+       if(tipo == '1'){   // cuando se elige un solo elemento del combo
+				if(arregloUsuarios.length >0)   {		 
+					  for(af=0;af<arregloUsuarios.length;af++){
+						  if( parseInt(arregloUsuarios[af][0]) == parseInt(idArchivo) &&  parseInt(arregloUsuarios[af][1]) == parseInt(cadena)) {
+							 arregloUsuarios.splice(af,1);  
+							 bandera = 1;
+							 break;
+						  }else{
+							 bandera = 0;  
+						  }
+					  }
+					  
+					  if(bandera===0){
+						    arregloUsuarios.push([parseInt(idArchivo),parseInt(cadena)]);  
+					  }
+				}else{
+					  arregloUsuarios.push([parseInt(idArchivo),parseInt(cadena)]); 
+				}
+		
+     }else{
+		// console.log(cadena);
+    	   var cachitos = cadena.split(',');
+           for(c=0;c<cachitos.length;c++){
+			if(arregloUsuarios.length >0)   {
+			  for(af=0;af<arregloUsuarios.length;af++){
+		//		  console.log('au'+af+'--'+parseInt(arregloUsuarios[af])+' == '+parseInt(cachitos[c])+'--ac');
+				  if( parseInt(arregloUsuarios[af][0]) == parseInt(idArchivo) &&  parseInt(arregloUsuarios[af][1]) == parseInt(cachitos[c])) {
+					 arregloUsuarios.splice(af,1);  
+					 bandera = 1;
+					 break;
+				 }else{
+					 bandera = 0;  
+				  }
+			  }
+			  if(bandera===0){
+				//   arregloUsuarios.push(parseInt(cachitos[c]));  
+				     arregloUsuarios.push([parseInt(idArchivo),parseInt(cachitos[c])]);  
+			  }
+			}else{
+//				 arregloUsuarios.push(parseInt(cachitos[c]));  
+				 arregloUsuarios.push([parseInt(idArchivo),parseInt(cachitos[c])]);  
+			}
+		   }
+	 }
+  
+  
+ /*console.log('nueva cadena'+cadena+'***:'+arregloUsuarios.length);
+         for(r=0;r<arregloUsuarios.length;r++){
+			for(c=0;c<arregloUsuarios[r].length;c++){
+				console.log('arregloUsuarios['+r+']['+c+']='+arregloUsuarios[r][c]);
+		 }
+		 }
+	*/	
+}
+
+
+//******************************************************
+function todoselegidos(valor){
+ var todos = '';	
+	 $("#"+valor+" option").each(function(){
 			if(todos == ''){
 				todos = $(this).attr('value');
 			}else{
@@ -256,10 +406,9 @@ function construyeArregloNoti(valor,tipo){
 			}
 		   
 		  });
-	}
- llenaVacia(tipo,todos)
- //console.log('tipo:'+tipo+'--'+todos); 	
+	return todos;
 }
+//******************************************************
 
 /*Funciones para la eliminacion*/
 function cancelarBorrado(){
@@ -278,7 +427,7 @@ function cancelarBorrado(){
     $("#btnEliminarArchivos").html("<span class='ui-icon ui-icon-trash ' style='float:right;'></span>&nbsp;Borrar Archivo(s)");
     contadorElementosBorrar=0;
     funcionEliminar=false;
-}
+  }
 
 function marcarArchivo(idFila){
 	//$("#"+idFila).css("background","#F78181");
@@ -324,24 +473,45 @@ function eliminarArchivosCatalogo(){
 	}
 }
 
-function llenaVacia(tipo,cadena){
-  if(arregloUsuarios.length ===0 ){
-    if(tipo == '1'){
-	        arregloUsuarios.push(cadena);	  	
-	}else{
-	   var partes = cadena.split(',');
-	    for(c=0;c<partes.length;c++){
-		  	 arregloUsuarios.push(partes[c]);	  		
-		}
+//******************************************************
 
+function cancelarUsuariosNoti(idArchivo,arreglo){
+   arregloUsuarios=[];
+   console.log('se limpio el arreglo arregloUsuarios'+arregloUsuarios.length);
+	/*if(arregloUsuarios.length>0){
+		 for(af=0;af<arregloUsuarios.length;af++){
+			  if( parseInt(arregloUsuarios[af][0]) === parseInt(idArchivo)) {
+				console.log('borrar:'+arregloUsuarios[af][1]);
+			    arregloUsuarios.splice(af,1);  
+				cancelarUsuariosNoti(idArchivo,arregloUsuarios)
+			  }
+ 	    }
 	}
-  }else{
-	if(tipo == '1'){
-	        arregloUsuarios.push(cadena);	  	
-	}
-  }
-  
-        for(j=0;j<arregloUsuarios.length;j++){
-	      console.log(arregloUsuarios[j]);	 
-        }
+	
+	
+	 //console.log('eliminar los escogidos:'+arregloUsuarios.length);
+         for(r=0;r<arregloUsuarios.length;r++){
+			for(c=0;c<arregloUsuarios[r].length;c++){
+			console.log('arregloUsuarios['+r+']['+c+']='+arregloUsuarios[r][c]);
+		    }
+		 }*/
+}
+
+function  llenaArregloFinal(){
+	
+	  for(r=0;r<arregloUsuarios.length;r++){
+	    if(arregloFinal.length > 0){
+			if(arregloFinal.indexOf(parseInt(arregloUsuarios[r][1]))===-1){
+				arregloFinal.push(parseInt(arregloUsuarios[r][1]));
+			}
+		}else{
+			arregloFinal.push(parseInt(arregloUsuarios[r][1]));
+		}
+	  }
+	
+	     for(r=0;r<arregloFinal.length;r++){
+			
+			console.log('arregloFinal['+r+']='+arregloFinal[r]);
+		    
+		 }
 }

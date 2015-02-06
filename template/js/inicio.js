@@ -28,8 +28,8 @@ $(document).ready(function(){
 		modal: true,
 		buttons: {
 			Cancelar: function() {
-				arregloUsuarios=[];
-				$("#dialogoUsuariosAsignados").dialog( "close" );
+				cancelarUsuariosNoti($('#detalleArchivo').val(),arregloUsuarios);
+			    $("#dialogoUsuariosAsignados").dialog( "close" );
 			},
 			Aceptar:function(){
 				recorre_select();

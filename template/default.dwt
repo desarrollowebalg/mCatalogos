@@ -24,6 +24,7 @@
     	<div class="ui-widget-header" style="padding:5px;width:97%;text-align:center;">Detalles</div>
     	<div id="divCatalogoDetalle" style="border:0px solid #FF0000;width:99.4%;"></div>
 		<div id="btnArbol" style="border-top:1px solid #a6c9e2;float:left;width:99.9%;text-align:right;margin:0px;">
+       
     		<button id="btnAsignarUsuarios" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="display:none;height:25px;margin-top:5px;margin:5px;"><span class="ui-icon ui-icon-circle-check " style="float:right;"></span>&nbsp;Asignar Usuarios</button>
             <button id="btnNotiUsuarios" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="display:none;height:25px;margin-top:5px;margin:5px;"><span class="ui-icon ui-icon-circle-check " style="float:right;"></span>&nbsp;Notificar a Usuarios</button>
     	</div>
