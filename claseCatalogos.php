@@ -39,65 +39,53 @@ class catalogos{
    		$archivos=explode(",,,",$archivos);
    		$mensaje="";
    		for($i=0;$i<count($archivos);$i++){
-<<<<<<< HEAD
-			$sql="SELECT CAT2_ARCHIVO.ID_ARCHIVO AS ID_ARCHIVO,PATH2,ID_USUARIO_ASIGNADO 
-		              FROM CAT2_ARCHIVO INNER JOIN CAT2_ARCHIVO_USUARIO ON CAT2_ARCHIVO.ID_ARCHIVO=CAT2_ARCHIVO_USUARIO.ID_ARCHIVO 
-					  WHERE CAT2_ARCHIVO.ID_ARCHIVO='".$archivos[$i]."'";
+
+			$sql="SELECT CAT2_ARCHIVO.ID_ARCHIVO AS ID_ARCHIVO,PATH AS UBICACION,ID_USUARIO_ASIGNADO 
+		              FROM CAT2_ARCHIVO LEFT JOIN CAT2_ARCHIVO_USUARIO ON CAT2_ARCHIVO.ID_ARCHIVO=CAT2_ARCHIVO_USUARIO.ID_ARCHIVO 
+			      WHERE CAT2_ARCHIVO.ID_ARCHIVO='".$archivos[$i]."'";
    		
 			$res=$objDb->sqlQuery($sql);
-=======
-			$sql="SELECT CAT2_ARCHIVO.ID_ARCHIVO AS ID_ARCHIVO,PATH,ID_USUARIO_ASIGNADO FROM CAT2_ARCHIVO INNER JOIN CAT2_ARCHIVO_USUARIO ON CAT2_ARCHIVO.ID_ARCHIVO=CAT2_ARCHIVO_USUARIO.ID_ARCHIVO WHERE CAT2_ARCHIVO.ID_ARCHIVO='".$archivos[$i]."'";
-   			$res=$objDb->sqlQuery($sql);
->>>>>>> 73a723aff767d72bf28152cc1732da36c7ef7912
+
 
    			while($row=$objDb->sqlFetchArray($res)){
-   				$path=$row["PATH"];
+   				$path=$row["UBICACION"];
 				if($usuariosPrevios==""){
 	   				$usuariosPrevios=$row["ID_USUARIO_ASIGNADO"];
 	   			}else{
 	   				$usuariosPrevios=$usuariosPrevios.",".$row["ID_USUARIO_ASIGNADO"];
 	   			}
    			}
-
-			if(unlink($path)){//se procede a eliminar el archivo
-				//se procede a eliminar el archivo de la base de datos
-
-				$sql1="DELETE FROM CAT2_ARCHIVO WHERE ID_ARCHIVO='".$archivos[$i]."'";
-				$res1=$objDb->sqlQuery($sql1);
-				if($res1){
-					$sql="DELETE FROM CAT2_ARCHIVO_USUARIO WHERE ID_ARCHIVO='".$archivos[$i]."'";	   				
-					$res=$objDb->sqlQuery($sql);
-					if($res){
-	   					$mensaje=1;//echo "<br>A borrar";		
-	   				}else{
-	   					$mensaje=0;
-	   				}
-	   			}else{
-	   				$mensaje=0;
-	   			}
-
-
-
-	   			$sql="DELETE FROM CAT2_ARCHIVO_USUARIO WHERE ID_ARCHIVO='".$archivos[$i]."'";
-	   			$res=$objDb->sqlQuery($sql);
-	   			if($res){
-	   				$sql1="DELETE FROM CAT2_ARCHIVO WHERE ID_ARCHIVO='".$archivos[$i]."'";
-	   				$res1=$objDb->sqlQuery($sql1);
-	   				if($res1){
-	   					$mensaje=1;//echo "<br>A borrar";		
-	   				}else{
-	   					$mensaje=0;
-	   				}
-	   			}
-		   	}else{
-		   		$mensaje=0;//echo "<br>Archivo no encontrado";
-		   	}
-
-
+			//echo "./".$path;
+			
+			if(file_exists("./".$path)){
+				if(unlink("./".$path)){//se procede a eliminar el archivo
+					//se procede a eliminar el archivo de la base de datos
+					if($usuariosPrevios!=""){
+						$sql1="DELETE FROM CAT2_ARCHIVO WHERE ID_ARCHIVO='".$archivos[$i]."'";
+						$res1=$objDb->sqlQuery($sql1);
+						if($res1){
+							$sql="DELETE FROM CAT2_ARCHIVO_USUARIO WHERE ID_ARCHIVO='".$archivos[$i]."'";	   				
+							$res=$objDb->sqlQuery($sql);
+							if($res){
+								$mensaje=1;//echo "<br>A borrar";		
+							}else{
+								$mensaje=0;
+							}
+						}else{
+							$mensaje=0;
+						}	
+					}
+				}else{
+					$mensaje=0;//echo "<br>Archivo no encontrado";
+				}
+			}else{
+				echo "Archivo no encontrado<br>";
+			}
+			//exit();
    		}
    		$mensaje=$mensaje."|||".$usuariosPrevios;
    		return $mensaje;
- }
+ 	}
 	/**
 	*@method 		avisoCatalogosExistentes
 	*@description 	Funcion para pintar aviso si no hay catalogos para el cliente
