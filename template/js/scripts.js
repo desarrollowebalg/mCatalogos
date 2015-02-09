@@ -43,12 +43,11 @@ function enviarNotificacion(usuarios){
 		},
 		success: function(data) {
 			//$("#"+divResultado).html(data);
-			 if(data=='ok'){
-				  
+			 
 				 avisoNotificar(2);
  				   $("#letrero_x").html('Notificacion(es) enviada(s)');
          		   $("#dialog_okey").dialog("open");
-			 }
+			
 			console.log("Resultado: "+data);
 		}
 	});
@@ -104,6 +103,7 @@ function verDetalles(titulo,resumen,ruta,imagen,tipo,idArchivo){
 	  $('#divCatalogoDetalle').html(tabla);
 	 $("#btnAsignarUsuarios").show();//se muestra el boton para la asignacion de usuarios
 	 $("#btnNotiUsuarios").show();//se muestra el boton para la asignacion de usuarios
+	  $("#avisoNotificaciones").show();
 }
 
 /*******************************************************************************/

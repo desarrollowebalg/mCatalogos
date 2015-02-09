@@ -236,6 +236,8 @@ function dibujArbol(){
 function pintaContenido(cliente,catalogo,tipo,rutaRaiz){
 	   $("#divCatalogoDetalle").html("");
 	   $("#btnAsignarUsuarios").hide();
+	   $("#btnNotiUsuarios").hide();
+	   $("#avisoNotificaciones").hide();
 	    idUsuarioCatalogo=$("#idUsuarioCatalogo").val();
       	parametros="action=pintaContenido&cliente="+cliente+"&catalogo="+catalogo+"&tipo="+tipo+"&rutaRaiz="+rutaRaiz+"&idUsuario="+idUsuarioCatalogo;
 		ajaxCatalogos("pintaContenido","controlador",parametros,"divCatalogo","divCatalogo","POST");

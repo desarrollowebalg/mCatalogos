@@ -26,7 +26,7 @@
 		<div id="btnArbol" style="border-top:1px solid #a6c9e2;float:left;width:99.9%;text-align:right;margin:0px;" align="left">
        <table border="0" width="100%" height="100%" > 
        <tr><td align="left"> 
-             <div id="avisoNotificaciones" style="width:100%; height:100%; background: #F3F3F3; color:#666;" > Notificaciones pendientes de envio: 
+             <div id="avisoNotificaciones" style=" display:none; width:100%; height:100%; background: #F3F3F3; color:#666;" > Notificaciones pendientes de envio: 
                  <input type="text" size="3" align="middle" value="No" id="valorNoti" readonly style=" border-style:none; font-size:12px; background-color:transparent;" />
              </div>
            </td>

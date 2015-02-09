@@ -39,16 +39,13 @@ class catalogos{
    		$archivos=explode(",,,",$archivos);
    		$mensaje="";
    		for($i=0;$i<count($archivos);$i++){
-<<<<<<< HEAD
+
 			$sql="SELECT CAT2_ARCHIVO.ID_ARCHIVO AS ID_ARCHIVO,PATH2,ID_USUARIO_ASIGNADO 
 		              FROM CAT2_ARCHIVO INNER JOIN CAT2_ARCHIVO_USUARIO ON CAT2_ARCHIVO.ID_ARCHIVO=CAT2_ARCHIVO_USUARIO.ID_ARCHIVO 
 					  WHERE CAT2_ARCHIVO.ID_ARCHIVO='".$archivos[$i]."'";
    		
 			$res=$objDb->sqlQuery($sql);
-=======
-			$sql="SELECT CAT2_ARCHIVO.ID_ARCHIVO AS ID_ARCHIVO,PATH,ID_USUARIO_ASIGNADO FROM CAT2_ARCHIVO INNER JOIN CAT2_ARCHIVO_USUARIO ON CAT2_ARCHIVO.ID_ARCHIVO=CAT2_ARCHIVO_USUARIO.ID_ARCHIVO WHERE CAT2_ARCHIVO.ID_ARCHIVO='".$archivos[$i]."'";
-   			$res=$objDb->sqlQuery($sql);
->>>>>>> 73a723aff767d72bf28152cc1732da36c7ef7912
+
 
    			while($row=$objDb->sqlFetchArray($res)){
    				$path=$row["PATH"];
